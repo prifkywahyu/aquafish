@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "633076126058",
+    "firebase_url": "https://aquafish-51d04.firebaseio.com",
+    "project_id": "aquafish-51d04",
+    "storage_bucket": "aquafish-51d04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633076126058:android:0825b4e5c256b517",
+        "android_client_info": {
+          "package_name": "com.mobile.aquafish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "633076126058-kufu3vddsl83sugj589hjmr81s7sjb8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY_33SR5scmzJzV1432lnV8Mo37UkoyYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "633076126058-kufu3vddsl83sugj589hjmr81s7sjb8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

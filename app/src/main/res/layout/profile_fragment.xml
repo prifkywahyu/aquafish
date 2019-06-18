@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/headerProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent"
+        android:paddingVertical="25dp"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        tools:targetApi="o">
+
+        <TextView
+            android:id="@+id/welcomeProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="@string/hello"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/lato_semi"/>
+
+        <TextView
+            android:id="@+id/personName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="@string/app_name"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/lato_bold"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewImage"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/headerProfile"
+        android:background="@mipmap/header_get"/>
+
+    <RelativeLayout
+        android:id="@+id/forMore"
+        android:layout_below="@id/viewImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/back_header"
+        tools:targetApi="o">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            tools:ignore="UselessParent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="0dp"
+                android:text="@string/app_name"
+                android:textSize="24sp"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/lato_bold"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardLive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/draw_shadow"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="start"
+                    android:paddingVertical="15dp"
+                    android:layout_marginHorizontal="30dp"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <View
+                        android:id="@+id/iconLive"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_camera"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/liveMonitor"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="0dp"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/draw_shadow"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="start"
+                    android:paddingVertical="15dp"
+                    android:layout_marginHorizontal="30dp"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <View
+                        android:id="@+id/iconGroup"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_group"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/creator"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="0dp"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardThanks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/draw_shadow"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="start"
+                    android:paddingVertical="15dp"
+                    android:layout_marginHorizontal="30dp"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <View
+                        android:id="@+id/iconThanks"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_notes"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/thanks"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="0dp"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
