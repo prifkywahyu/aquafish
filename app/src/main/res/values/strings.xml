@@ -27,7 +27,7 @@
     <string name="feed_add">Create</string>
     <string name="settings">Logout Now</string>
     <string name="logout">Logout</string>
-    <string name="number">120</string>
+    <string name="number">00</string>
     <string name="status">Status:</string>
     <string name="act">Manual Action</string>
     <string name="hello">Hello, my name is:</string>
@@ -46,5 +46,6 @@
     <string name="creator">About Creators</string>
     <string name="thanks">Thank-You Note</string>
     <string name="report">See Report</string>
-    <string name="normal">Normal</string>
+    <string name="normal">Processing</string>
+    <string name="note">Notifications</string>
 </resources>

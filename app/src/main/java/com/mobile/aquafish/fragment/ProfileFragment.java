@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,10 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mobile.aquafish.FragmentMain;
+import com.mobile.aquafish.LiveMonitor;
 import com.mobile.aquafish.MainActivity;
 import com.mobile.aquafish.R;
 
@@ -30,6 +33,7 @@ public class ProfileFragment extends Fragment {
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     TextView email;
+    CardView live, notify, about;
 
     @Nullable
     @Override
@@ -38,7 +42,12 @@ public class ProfileFragment extends Fragment {
 
         setHasOptionsMenu(true);
         ((FragmentMain) Objects.requireNonNull(getActivity())).setTitleActionBar("More Options");
+        live = forView.findViewById(R.id.cardLive);
+        notify = forView.findViewById(R.id.cardNotify);
+        about = forView.findViewById(R.id.cardGroup);
         email = forView.findViewById(R.id.personName);
+        methodCard();
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         getPersonName();
@@ -109,6 +118,31 @@ public class ProfileFragment extends Fragment {
                 back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(back);
                 Objects.requireNonNull(getActivity()).finish();
+            }
+        });
+    }
+
+    private void methodCard() {
+        live.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent live = new Intent(getContext(), LiveMonitor.class);
+                live.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(live);
+            }
+        });
+
+        notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Currently notifications not ready", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Currently the feature not available", Toast.LENGTH_SHORT).show();
             }
         });
     }
