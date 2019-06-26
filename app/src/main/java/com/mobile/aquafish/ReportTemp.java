@@ -33,22 +33,23 @@ public class ReportTemp extends AppCompatActivity {
         Objects.requireNonNull(bar).setTitle("Temperature Report");
 
         ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<SensorModel>> listCall = service.getSensorData(TYPE_TEMP);
-        listCall.enqueue(new Callback<List<SensorModel>>() {
+        Call<SensorModel.Report> listCall = service.getSensorData(TYPE_TEMP);
+        listCall.enqueue(new Callback<SensorModel.Report>() {
             @Override
-            public void onResponse(@NotNull Call<List<SensorModel>> call, @NotNull Response<List<SensorModel>> response) {
-                List<SensorModel> models = response.body();
+            public void onResponse(@NotNull Call<SensorModel.Report> call, @NotNull Response<SensorModel.Report> response) {
+                SensorModel.Report report = response.body();
 
-                for (SensorModel sensorModel: Objects.requireNonNull(models)) {
+                for (SensorModel sensorModel: Objects.requireNonNull(Objects.requireNonNull(report).records)) {
                     Log.d("type", sensorModel.getTypeSensor());
                     Log.d("value", sensorModel.getValueSensor());
                     Log.d("status", sensorModel.getStatusSensor());
+                    Log.d("created", sensorModel.getCreatedSensor());
                 }
             }
 
             @Override
-            public void onFailure(@NotNull Call<List<SensorModel>> call, @NotNull Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(@NotNull Call<SensorModel.Report> call, @NotNull Throwable t) {
+
             }
         });
     }

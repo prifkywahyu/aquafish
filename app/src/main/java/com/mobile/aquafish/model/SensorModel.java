@@ -2,6 +2,8 @@ package com.mobile.aquafish.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class SensorModel {
 
     @SerializedName("type")
@@ -50,5 +52,15 @@ public class SensorModel {
 
     public void setCreatedSensor(String createdSensor) {
         this.createdSensor = createdSensor;
+    }
+
+    public static class Report {
+
+        @SerializedName("records")
+        public ArrayList<SensorModel> records;
+
+        public Report() {
+            records = new ArrayList<>();
+        }
     }
 }

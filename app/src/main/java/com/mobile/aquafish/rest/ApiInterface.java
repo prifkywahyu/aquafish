@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
     @GET("gets_sensor.php")
-    Call<List<SensorModel>> getSensorData(@Query("type") String type);
+    Call<SensorModel.Report> getSensorData(@Query("type") String type);
 
     @GET("read_sensor.php")
     Call<SensorModel> getTwoData(@Query("type") String type);
