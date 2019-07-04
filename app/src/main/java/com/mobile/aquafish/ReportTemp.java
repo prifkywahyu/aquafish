@@ -13,7 +13,6 @@ import com.mobile.aquafish.rest.ApiInterface;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -49,7 +48,8 @@ public class ReportTemp extends AppCompatActivity {
 
             @Override
             public void onFailure(@NotNull Call<SensorModel.Report> call, @NotNull Throwable t) {
-
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("Error", t.toString());
             }
         });
     }

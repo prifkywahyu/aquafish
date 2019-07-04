@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = HomeFragment.class.getSimpleName();
     TextView date, timeText, valueTemp, statusTemp, valueTurbid, statusTurbid, valueWlc, statusWlc;
     Button reportTemp;
-    int FOR_REFRESH = 10000;
+    int FOR_REFRESH = 20000;
 
     @Nullable
     @Override
