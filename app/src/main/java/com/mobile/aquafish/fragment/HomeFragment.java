@@ -1,7 +1,6 @@
 package com.mobile.aquafish.fragment;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -9,9 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,6 +17,8 @@ import android.widget.Toast;
 import com.mobile.aquafish.FragmentMain;
 import com.mobile.aquafish.R;
 import com.mobile.aquafish.ReportTemp;
+import com.mobile.aquafish.ReportTurbid;
+import com.mobile.aquafish.ReportWlc;
 import com.mobile.aquafish.model.SensorModel;
 import com.mobile.aquafish.rest.ApiClient;
 import com.mobile.aquafish.rest.ApiInterface;
@@ -39,7 +37,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
     TextView date, timeText, valueTemp, statusTemp, valueTurbid, statusTurbid, valueWlc, statusWlc;
-    Button reportTemp;
+    Button reportTemp, reportTurbid, reportWlc;
     int FOR_REFRESH = 20000;
 
     @Nullable
@@ -47,9 +45,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View forView = inflater.inflate(R.layout.home_fragment, container, false);
 
-        setHasOptionsMenu(true);
+        reportWlc = forView.findViewById(R.id.actionForWlc);
+        reportWlc.setOnClickListener(this);
         reportTemp = forView.findViewById(R.id.actionForTemp);
         reportTemp.setOnClickListener(this);
+        reportTurbid = forView.findViewById(R.id.actionForTurbid);
+        reportTurbid.setOnClickListener(this);
         date = forView.findViewById(R.id.dateText);
         timeText = forView.findViewById(R.id.timeText);
         valueTemp = forView.findViewById(R.id.valueForTemp);
@@ -75,24 +76,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }; refresh.postDelayed(runnable, FOR_REFRESH);
 
         return forView;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.home_reload, menu);
-        for (int in = 0; in < menu.size(); in++) {
-            Drawable draw = menu.getItem(in).getIcon();
-            if (draw != null) {
-                draw.mutate();
-            }
-        }
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 
     private void getValueStatus() {
@@ -173,6 +156,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 Intent getTemp = new Intent(getContext(), ReportTemp.class);
                 getTemp.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(getTemp);
+                break;
+            case R.id.actionForTurbid:
+                Intent getTurbid = new Intent(getContext(), ReportTurbid.class);
+                getTurbid.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(getTurbid);
+                break;
+            case R.id.actionForWlc:
+                Intent getWlc = new Intent(getContext(), ReportWlc.class);
+                getWlc.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(getWlc);
+                break;
         }
     }
 }

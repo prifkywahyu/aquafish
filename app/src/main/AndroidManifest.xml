@@ -44,6 +44,16 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity android:name=".ReportTurbid"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".ReportWlc"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

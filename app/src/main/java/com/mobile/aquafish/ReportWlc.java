@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.mobile.aquafish.adapter.AdapterTemp;
+import com.mobile.aquafish.adapter.AdapterWlc;
 import com.mobile.aquafish.model.SensorModel;
 import com.mobile.aquafish.rest.ApiClient;
 import com.mobile.aquafish.rest.ApiInterface;
@@ -25,9 +25,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReportTemp extends AppCompatActivity {
+public class ReportWlc extends AppCompatActivity {
 
-    private final static String TYPE_TEMP = "101";
+    private final static String TYPE_WLC = "303";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,23 +35,23 @@ public class ReportTemp extends AppCompatActivity {
         setContentView(R.layout.content_main);
 
         ActionBar bar = getSupportActionBar();
-        Objects.requireNonNull(bar).setTitle("Temperature Report");
+        Objects.requireNonNull(bar).setTitle("Water Level Report");
 
         final RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
-        Call<SensorModel.Report> listCall = service.getSensorData(TYPE_TEMP);
+        Call<SensorModel.Report> listCall = service.getSensorData(TYPE_WLC);
         listCall.enqueue(new Callback<SensorModel.Report>() {
             @Override
             public void onResponse(@NotNull Call<SensorModel.Report> call, @NotNull Response<SensorModel.Report> response) {
                 SensorModel.Report report = response.body();
 
                 ArrayList<SensorModel> sensorModels = Objects.requireNonNull(report).records;
-                AdapterTemp adapterTemp = new AdapterTemp(sensorModels, R.layout.report_temp, getApplicationContext());
+                AdapterWlc adapterWlc = new AdapterWlc(sensorModels, R.layout.report_wlc, getApplicationContext());
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                 recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
-                recyclerView.setAdapter(adapterTemp);
+                recyclerView.setAdapter(adapterWlc);
             }
 
             @Override

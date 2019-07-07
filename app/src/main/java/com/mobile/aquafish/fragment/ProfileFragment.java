@@ -2,27 +2,20 @@ package com.mobile.aquafish.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mobile.aquafish.FragmentMain;
-import com.mobile.aquafish.LiveMonitor;
 import com.mobile.aquafish.MainActivity;
 import com.mobile.aquafish.R;
 
@@ -32,51 +25,36 @@ public class ProfileFragment extends Fragment {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-    TextView email;
-    CardView live, notify, about;
+    TextView email, about;
+    Button logout;
 
+    @SuppressLint("SetTextI18n")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View forView = inflater.inflate(R.layout.profile_fragment, container, false);
 
-        setHasOptionsMenu(true);
         ((FragmentMain) Objects.requireNonNull(getActivity())).setTitleActionBar("More Options");
-        live = forView.findViewById(R.id.cardLive);
-        notify = forView.findViewById(R.id.cardNotify);
-        about = forView.findViewById(R.id.cardGroup);
         email = forView.findViewById(R.id.personName);
-        methodCard();
+        about = forView.findViewById(R.id.aboutUs);
+        about.setText("Hi! Let us introduced to you all, we are Aquafish, an application for water quality monitoring and automatic feeding to simplify your pet maintenance." +
+                "\n\nAquafish are built by two students, they are Muhammad Naufal and Rifky Wahyu Pratama. Both of them, want to create an efficiency and effective pet caring without worried about your time, job and etc." +
+                "\n\nOwner of pet can enjoy the time, doing job with a happy feeling. Hope we can help your problem with pet." +
+                "\n\nWith love, Aquafish Team.");
+
+        logout = forView.findViewById(R.id.buttonSignOut);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogLogout();
+            }
+        });
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         getPersonName();
 
         return forView;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.more_settings, menu);
-        for (int us = 0; us < menu.size(); us++) {
-            Drawable drawer = menu.getItem(us).getIcon();
-            if (drawer != null) {
-                drawer.mutate();
-            }
-        }
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.navigation_set:
-                dialogLogout();
-                return true;
-        }
-
-        return false;
     }
 
     public void getPersonName() {
@@ -118,31 +96,6 @@ public class ProfileFragment extends Fragment {
                 back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(back);
                 Objects.requireNonNull(getActivity()).finish();
-            }
-        });
-    }
-
-    private void methodCard() {
-        live.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent live = new Intent(getContext(), LiveMonitor.class);
-                live.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(live);
-            }
-        });
-
-        notify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Currently notifications not ready", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        about.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Currently the feature not available", Toast.LENGTH_SHORT).show();
             }
         });
     }

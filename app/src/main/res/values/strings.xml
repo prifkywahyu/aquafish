@@ -30,7 +30,7 @@
     <string name="number">00</string>
     <string name="status">Status:</string>
     <string name="act">Manual Action</string>
-    <string name="hello">Hello, my name is:</string>
+    <string name="hello">Owner name</string>
     <string name="personOne">Rifky Wahyu Pratama</string>
     <string name="personTwo">Muhammad Naufal</string>
     <string name="emailOne">prifkywahyu@gmail.com</string>
@@ -43,7 +43,7 @@
     <string name="fishType">Start Time</string>
     <string name="selectType">Select Time</string>
     <string name="liveMonitor">Live Monitoring</string>
-    <string name="creator">About Creators</string>
+    <string name="creator">About Aquafish</string>
     <string name="thanks">Thank-You Note</string>
     <string name="report">See Report</string>
     <string name="normal">Processing</string>
