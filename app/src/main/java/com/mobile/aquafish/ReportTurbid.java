@@ -44,13 +44,16 @@ public class ReportTurbid extends AppCompatActivity {
         Call<SensorModel.Report> listCall = service.getSensorData(TYPE_TURBID);
         listCall.enqueue(new Callback<SensorModel.Report>() {
             @Override
-            public void onResponse(@NotNull Call<SensorModel.Report> call, @NotNull Response<SensorModel.Report> response) {
+            public void onResponse(@NotNull Call<SensorModel.Report> call, @NotNull Response<SensorModel.Report>
+                    response) {
                 SensorModel.Report report = response.body();
 
                 ArrayList<SensorModel> sensorModels = Objects.requireNonNull(report).records;
-                AdapterTurbid adapterTurbid = new AdapterTurbid(sensorModels, R.layout.report_turbid, getApplicationContext());
+                AdapterTurbid adapterTurbid = new AdapterTurbid(sensorModels, R.layout.report_turbid,
+                        getApplicationContext());
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
+                recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                        DividerItemDecoration.HORIZONTAL));
                 recyclerView.setAdapter(adapterTurbid);
             }
 

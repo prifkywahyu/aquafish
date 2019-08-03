@@ -168,10 +168,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void methodForLogin() {
-        dialog = ProgressDialog.show(MainActivity.this, null, "Loading get data", true, false);
+        dialog = ProgressDialog.show(MainActivity.this, null, "Loading get data",
+                true, false);
 
         (auth.signInWithEmailAndPassword(Objects.requireNonNull(email.getText()).toString().trim(),
-                Objects.requireNonNull(pass.getText()).toString().trim())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                Objects.requireNonNull(pass.getText()).toString().trim()))
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 dialog.dismiss();
@@ -183,7 +185,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     finish();
                 } else {
                     Log.e("Login Error", Objects.requireNonNull(task.getException()).toString());
-                    Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, task.getException().getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });

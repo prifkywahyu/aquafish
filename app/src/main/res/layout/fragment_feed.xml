@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:id="@+id/scrollFeed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/buttonForFeed"
+        android:background="@android:color/transparent"
+        android:fillViewport="true"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            tools:targetApi="o">
+
+            <LinearLayout
+                android:id="@+id/blankFeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/field_login"
+                android:layout_marginTop="50dp"
+                android:padding="20dp"
+                tools:ignore="UselessParent">
+
+                <ImageView
+                    android:id="@+id/imageEmpty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/app_name"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:src="@mipmap/hugo_empty"/>
+
+                <TextView
+                    android:id="@+id/emptyList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/emptyList"
+                    android:textSize="18sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorGray"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/startSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="25dp"
+                android:text="@string/fishType"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
+
+            <LinearLayout
+                android:id="@+id/startTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                tools:targetApi="o">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_clock"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="25dp"
+                    android:contentDescription="@string/selectType"/>
+
+                <TextView
+                    android:id="@+id/startHour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/lato_bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=":"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/lato_bold"
+                    tools:ignore="HardcodedText"/>
+
+                <TextView
+                    android:id="@+id/startMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/lato_bold"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/endSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="25dp"
+                android:text="@string/selectType"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
+
+            <LinearLayout
+                android:id="@+id/endTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                tools:targetApi="o">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_clock"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="25dp"
+                    android:contentDescription="@string/selectType"/>
+
+                <TextView
+                    android:id="@+id/endHour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/lato_bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=":"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/lato_bold"
+                    tools:ignore="HardcodedText"/>
+
+                <TextView
+                    android:id="@+id/endMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/lato_bold"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/weightType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="25dp"
+                android:text="@string/feedWeight"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
+
+            <LinearLayout
+                android:id="@+id/weightSelect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                tools:targetApi="o">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_weight"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="25dp"
+                    android:contentDescription="@string/selectType"/>
+
+                <TextView
+                    android:id="@+id/delay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/lato_bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/gram"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="0dp"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/lato_bold"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/buttonForFeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent"
+        android:layout_marginVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        tools:targetApi="o">
+
+        <Button
+            android:id="@+id/addFeed"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="@string/create_feed"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/field_backup"
+            tools:targetApi="o"
+            tools:ignore="ButtonStyle"/>
+
+        <Button
+            android:id="@+id/updateFeed"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="@string/update_feed"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/field_button"
+            tools:targetApi="o"
+            tools:ignore="ButtonStyle"/>
+    </LinearLayout>
+
+</RelativeLayout>

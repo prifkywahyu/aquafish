@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View forView = inflater.inflate(R.layout.home_fragment, container, false);
+        View forView = inflater.inflate(R.layout.fragment_home, container, false);
 
         reportWlc = forView.findViewById(R.id.actionForWlc);
         reportWlc.setOnClickListener(this);
