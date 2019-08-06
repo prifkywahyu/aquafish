@@ -2,23 +2,26 @@ package com.mobile.aquafish.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobile.aquafish.FragmentMain;
+import com.mobile.aquafish.InputFilterMinMax;
 import com.mobile.aquafish.R;
 import com.mobile.aquafish.model.FeederModel;
 import com.mobile.aquafish.rest.ApiClient;
@@ -35,8 +38,6 @@ import retrofit2.Response;
 public class FeedingFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = FeedingFragment.class.getSimpleName();
-    public static final String[] selectWeight = {"5 gram", "7 gram", "9 gram"};
-    public static final String[] selectType = {"07:00", "08:00"};
     Button createFeed, updateFeed;
     LinearLayout first, second, third, fourth;
     TextView startOne, startTwo, endOne, endTwo, weightDelay, writeStart, writeEnd, writeWeight;
@@ -123,47 +124,51 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
         final AlertDialog dialog = builder.create();
         dialog.show();
 
-        Spinner weight = view.findViewById(R.id.spinnerWeight);
-        ArrayAdapter<String> getSelectWeight = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, selectWeight);
-        getSelectWeight.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        weight.setAdapter(getSelectWeight);
-        weight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        TextView title = view.findViewById(R.id.createTitle);
+        title.setText(R.string.create_feed);
+        final EditText gram = view.findViewById(R.id.feedGram);
+        final EditText secondHr = view.findViewById(R.id.secondHour);
+        final EditText secondMn = view.findViewById(R.id.secondMinute);
+
+        final EditText firstHr = view.findViewById(R.id.firstHour);
+        firstHr.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int parseValue = 0;
+
+                try {
+                    parseValue = Integer.parseInt(firstHr.getText().toString());
+                    int out = parseValue+8;
+                    secondHr.setText(String.valueOf(out));
+                } catch (NumberFormatException e) {
+                    firstHr.setText(String.valueOf(parseValue));
+                    secondHr.setText(String.valueOf(parseValue));
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
+            public void afterTextChanged(Editable s) {
             }
         });
 
-        Spinner type = view.findViewById(R.id.spinnerTime);
-        ArrayAdapter<String> getSelectType = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, selectType);
-        getSelectType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        type.setAdapter(getSelectType);
-        type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        final EditText firstMn = view.findViewById(R.id.firstMinute);
+        firstMn.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
+        firstMn.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                secondMn.setText(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
 
@@ -176,10 +181,171 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
         });
 
         Button saved = view.findViewById(R.id.saveFeed);
+        saved.setText(R.string.save);
         saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                Call<FeederModel> feederData = apiInterface.postSchedule(firstHr.getText().toString(), firstMn.getText().toString(),
+                        secondHr.getText().toString(), secondMn.getText().toString(), gram.getText().toString());
+                feederData.enqueue(new Callback<FeederModel>() {
+                    @Override
+                    public void onResponse(Call<FeederModel> call, Response<FeederModel> response) {
+                        if (response.body() != null) {
+                            dialog.dismiss();
+
+                            Log.d(TAG, "Successfully sent data to database.");
+                            Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), "Success to create scheduler!", Toast.LENGTH_SHORT).show();
+
+                            final Handler refresh = new Handler();
+                            Runnable runnable = new Runnable() {
+                                @Override
+                                public void run() {
+                                    getFeedingData();
+                                    refresh.postDelayed(this, 2500);
+                                }
+                            }; refresh.postDelayed(runnable, 2500);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<FeederModel> call, Throwable throwable) {
+                        Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, throwable.toString());
+                    }
+                });
+            }
+        });
+    }
+
+    public void dialogUpdate() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+        LayoutInflater inflater = this.getLayoutInflater();
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.schedule_popup, null);
+        builder.setView(view);
+        builder.setCancelable(false);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        TextView title = view.findViewById(R.id.createTitle);
+        title.setText(R.string.update_feed);
+        final EditText gram = view.findViewById(R.id.feedGram);
+        final EditText secondHr = view.findViewById(R.id.secondHour);
+        final EditText secondMn = view.findViewById(R.id.secondMinute);
+
+        final EditText firstHr = view.findViewById(R.id.firstHour);
+        firstHr.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int parseValue = 0;
+
+                try {
+                    parseValue = Integer.parseInt(firstHr.getText().toString());
+                    int out = parseValue+8;
+                    secondHr.setText(String.valueOf(out));
+                } catch (NumberFormatException e) {
+                    firstHr.setText(String.valueOf(parseValue));
+                    secondHr.setText(String.valueOf(parseValue));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        final EditText firstMn = view.findViewById(R.id.firstMinute);
+        firstMn.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
+        firstMn.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                secondMn.setText(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<FeederModel> feederGet = apiInterface.getFeederData();
+        feederGet.enqueue(new Callback<FeederModel>() {
+            @Override
+            public void onResponse(Call<FeederModel> call, Response<FeederModel> response) {
+                if (response.body() != null) {
+                    String getStartHr = response.body().getStartHour();
+                    String getStartMn = response.body().getStartMin();
+                    String getEndHr = response.body().getEndHour();
+                    String getEndMn = response.body().getEndMin();
+                    String getDelay = response.body().getDelay();
+                    Log.d(TAG, "Feed schedule successfully received data");
+
+                    firstHr.setText(getStartHr);
+                    firstMn.setText(getStartMn);
+                    secondHr.setText(getEndHr);
+                    secondMn.setText(getEndMn);
+                    gram.setText(getDelay);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FeederModel> call, Throwable throwable) {
+                Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, throwable.toString());
+            }
+        });
+
+        Button abort = view.findViewById(R.id.abortFeed);
+        abort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 dialog.dismiss();
+            }
+        });
+
+        Button saved = view.findViewById(R.id.saveFeed);
+        saved.setText(R.string.update);
+        saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                Call<FeederModel> feederData = apiInterface.postSchedule(firstHr.getText().toString(), firstMn.getText().toString(),
+                        secondHr.getText().toString(), secondMn.getText().toString(), gram.getText().toString());
+                feederData.enqueue(new Callback<FeederModel>() {
+                    @Override
+                    public void onResponse(Call<FeederModel> call, Response<FeederModel> response) {
+                        if (response.body() != null) {
+                            dialog.dismiss();
+
+                            Log.d(TAG, "Successfully update data to database.");
+                            Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), "Success to update scheduler!", Toast.LENGTH_SHORT).show();
+
+                            final Handler refresh = new Handler();
+                            Runnable runnable = new Runnable() {
+                                @Override
+                                public void run() {
+                                    getFeedingData();
+                                    refresh.postDelayed(this, 2500);
+                                }
+                            }; refresh.postDelayed(runnable, 2500);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<FeederModel> call, Throwable throwable) {
+                        Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, throwable.toString());
+                    }
+                });
             }
         });
     }
@@ -191,6 +357,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
                 dialogCreate();
                 break;
             case R.id.updateFeed:
+                dialogUpdate();
                 break;
         }
     }

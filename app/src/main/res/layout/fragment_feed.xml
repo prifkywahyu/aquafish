@@ -58,7 +58,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginHorizontal="25dp"
-                android:text="@string/fishType"
+                android:text="@string/firstType"
                 android:textSize="20sp"
                 android:textColor="@android:color/black"/>
 
@@ -77,7 +77,7 @@
                     android:src="@mipmap/ic_clock"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="25dp"
-                    android:contentDescription="@string/selectType"/>
+                    android:contentDescription="@string/firstType"/>
 
                 <TextView
                     android:id="@+id/startHour"
@@ -117,7 +117,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginHorizontal="25dp"
-                android:text="@string/selectType"
+                android:text="@string/secondType"
                 android:textSize="20sp"
                 android:textColor="@android:color/black"/>
 
@@ -136,7 +136,7 @@
                     android:src="@mipmap/ic_clock"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="25dp"
-                    android:contentDescription="@string/selectType"/>
+                    android:contentDescription="@string/secondType"/>
 
                 <TextView
                     android:id="@+id/endHour"
@@ -195,7 +195,7 @@
                     android:src="@mipmap/ic_weight"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="25dp"
-                    android:contentDescription="@string/selectType"/>
+                    android:contentDescription="@string/feedWeight"/>
 
                 <TextView
                     android:id="@+id/delay"

@@ -20,25 +20,11 @@
         android:id="@+id/createTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create_feed"
         android:textSize="18sp"
         android:textColor="@color/colorAccent"
         android:textAlignment="center"
         android:fontFamily="@font/lato_semi"
-        android:layout_marginBottom="7dp"/>
-
-    <TextView
-        android:id="@+id/scriptTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/script_create"
-        android:textSize="16sp"
-        android:textColor="@color/colorGray"
-        android:textAlignment="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/lato_regular"/>
+        android:layout_marginBottom="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,9 +38,7 @@
             android:id="@+id/forWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="15dp"
+            android:layout_weight="1.25"
             android:text="@string/feedWeight"
             android:textSize="16sp"
             android:textColor="@android:color/black"
@@ -62,51 +46,171 @@
             android:fontFamily="@font/lato_regular"
             tools:targetApi="o"/>
 
-        <Spinner
-            android:id="@+id/spinnerWeight"
+        <EditText
+            android:id="@+id/feedGram"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:prompt="@string/selectWeight"
-            android:spinnerMode="dropdown"
-            android:background="@drawable/spinner_border"
-            tools:targetApi="o">
-        </Spinner>
+            android:layout_weight="2"
+            tools:targetApi="o"
+            android:text="@string/forGram"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:enabled="false"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            tools:ignore="LabelFor"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.25"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"
+            android:fontFamily="@font/lato_regular"
+            tools:targetApi="o"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/gram"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="textStart"
+            android:fontFamily="@font/lato_regular"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="30dp"
         android:orientation="horizontal"
         tools:targetApi="o">
 
         <TextView
-            android:id="@+id/forTime"
+            android:id="@+id/forFirstTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.25"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="15dp"
-            android:text="@string/fishType"
+            android:text="@string/firstType"
             android:textSize="16sp"
             android:textColor="@android:color/black"
             android:textAlignment="textStart"
             android:fontFamily="@font/lato_regular"
             tools:targetApi="o"/>
 
-        <Spinner
-            android:id="@+id/spinnerTime"
+        <EditText
+            android:id="@+id/firstHour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:prompt="@string/selectType"
-            android:spinnerMode="dropdown"
-            android:background="@drawable/spinner_border"
-            tools:targetApi="o">
-        </Spinner>
+            android:layout_weight="2"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:maxLength="2"
+            android:maxLines="1"
+            tools:targetApi="o"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            tools:ignore="LabelFor"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.25"
+            android:text="@string/strip"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"
+            android:fontFamily="@font/lato_regular"
+            tools:targetApi="o"/>
+
+        <EditText
+            android:id="@+id/firstMinute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:maxLength="2"
+            android:maxLines="1"
+            tools:targetApi="o"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            tools:ignore="LabelFor"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="30dp"
+        android:orientation="horizontal"
+        tools:targetApi="o">
+
+        <TextView
+            android:id="@+id/forSecondTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.25"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/secondType"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="textStart"
+            android:fontFamily="@font/lato_regular"
+            tools:targetApi="o"/>
+
+        <EditText
+            android:id="@+id/secondHour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:enabled="false"
+            tools:targetApi="o"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            tools:ignore="LabelFor"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.25"
+            android:text="@string/strip"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"
+            android:fontFamily="@font/lato_regular"
+            tools:targetApi="o"/>
+
+        <EditText
+            android:id="@+id/secondMinute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:enabled="false"
+            tools:targetApi="o"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            tools:ignore="LabelFor"/>
     </LinearLayout>
 
     <LinearLayout
@@ -139,7 +243,6 @@
             android:layout_height="36dp"
             android:layout_weight="1"
             android:background="@drawable/field_button"
-            android:text="@string/save"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:textColor="@android:color/white"
