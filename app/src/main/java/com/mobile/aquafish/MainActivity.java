@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -23,7 +24,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     TextInputLayout boxMail, boxPass;
     TextInputEditText email, pass;
-    Button login;
+    Button login, toRegister;
     FirebaseAuth auth;
     ProgressDialog dialog;
 
@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         login = findViewById(R.id.buttonLogin);
         login.setOnClickListener(this);
+        toRegister = findViewById(R.id.buttonToRegister);
+        toRegister.setOnClickListener(this);
         boxMail = findViewById(R.id.checkOne);
         boxPass = findViewById(R.id.checkTwo);
 
@@ -125,18 +127,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-        if (user != null) {
-            Intent intent = new Intent(MainActivity.this, FragmentMain.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
         }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -145,6 +140,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String forPass = Objects.requireNonNull(pass.getText()).toString().trim();
 
         switch (v.getId()) {
+            case R.id.buttonToRegister:
+                Intent enroll = new Intent(MainActivity.this, MainRegister.class);
+                startActivity(enroll);
+                finish();
+                break;
             case R.id.buttonLogin:
                 if (forMail.isEmpty() & forPass.isEmpty()) {
                     boxMail.setErrorEnabled(true);
@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     login.setEnabled(true);
                     methodForLogin();
                 }
+                break;
         }
     }
 

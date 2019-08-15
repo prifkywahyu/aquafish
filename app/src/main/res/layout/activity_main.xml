@@ -76,7 +76,7 @@
             android:padding="5dp"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/field_login"
             android:orientation="vertical"
             tools:targetApi="o">
@@ -126,6 +126,23 @@
                     android:textColor="@android:color/black"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonToRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fieldLogin"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="30dp"
+            android:text="@string/register_state"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="@android:color/transparent"
+            tools:targetApi="m"
+            tools:ignore="UnusedAttribute"/>
     </RelativeLayout>
     </ScrollView>
 

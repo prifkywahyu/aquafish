@@ -30,6 +30,11 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name=".MainRegister"
+            android:theme="@style/ThemeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
         <activity android:name=".FragmentMain"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">

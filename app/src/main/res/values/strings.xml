@@ -47,4 +47,11 @@
     <string name="normal">Processing</string>
     <string name="gram">gram</string>
     <string name="forGram">1.2</string>
+    <string name="login_state">Already have an account? Login</string>
+    <string name="register_state">Don\'t have an account? Register</string>
+    <string name="register">Register</string>
+    <string name="newAccount">Register to Aquafish!</string>
+    <string name="formRegister">Please fill the register form</string>
+    <string name="input_name">Input name</string>
+    <string name="aqua_code">Aqua Code</string>
 </resources>

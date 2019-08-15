@@ -2,6 +2,7 @@ package com.mobile.aquafish.rest;
 
 import com.mobile.aquafish.model.FeederModel;
 import com.mobile.aquafish.model.SensorModel;
+import com.mobile.aquafish.model.UserModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -16,10 +17,8 @@ public interface ApiInterface {
     @GET("sensor_report.php")
     Call<SensorModel.Report> getSensorData(@Query("type") String type);
 
-    @POST("feeder_add.php")
-    Call<FeederModel> postSchedule(@Query("start_hour") String startOne, @Query("start_min") String startTwo,
-                                   @Query("end_hour") String endOne, @Query("end_min") String endTwo,
-                                   @Query("delay") String postDelay);
+    @POST("user_setup.php")
+    Call<UserModel> postUserData(@Query("name") String name, @Query("email") String email, @Query("aqua_code") String aqua_code);
 
     @GET("feeder_read.php")
     Call<FeederModel> getFeederData();

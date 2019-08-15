@@ -16,6 +16,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SplashScreen extends AppCompatActivity {
@@ -32,6 +35,21 @@ public class SplashScreen extends AppCompatActivity {
         }
 
         PostDelayedMethod();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if (user != null) {
+            Intent intent = new Intent(SplashScreen.this, FragmentMain.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void DialogAppear() {
