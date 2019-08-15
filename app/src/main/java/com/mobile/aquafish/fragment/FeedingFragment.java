@@ -190,7 +190,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
                         secondHr.getText().toString(), secondMn.getText().toString(), gram.getText().toString());
                 feederData.enqueue(new Callback<FeederModel>() {
                     @Override
-                    public void onResponse(Call<FeederModel> call, Response<FeederModel> response) {
+                    public void onResponse(@NotNull Call<FeederModel> call, @NotNull Response<FeederModel> response) {
                         if (response.body() != null) {
                             dialog.dismiss();
 
@@ -209,7 +209,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
                     }
 
                     @Override
-                    public void onFailure(Call<FeederModel> call, Throwable throwable) {
+                    public void onFailure(@NotNull Call<FeederModel> call, @NotNull Throwable throwable) {
                         Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
                         Log.e(TAG, throwable.toString());
                     }
@@ -280,7 +280,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
         Call<FeederModel> feederGet = apiInterface.getFeederData();
         feederGet.enqueue(new Callback<FeederModel>() {
             @Override
-            public void onResponse(Call<FeederModel> call, Response<FeederModel> response) {
+            public void onResponse(@NotNull Call<FeederModel> call, @NotNull Response<FeederModel> response) {
                 if (response.body() != null) {
                     String getStartHr = response.body().getStartHour();
                     String getStartMn = response.body().getStartMin();
@@ -298,7 +298,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<FeederModel> call, Throwable throwable) {
+            public void onFailure(@NotNull Call<FeederModel> call, @NotNull Throwable throwable) {
                 Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e(TAG, throwable.toString());
             }
@@ -322,7 +322,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
                         secondHr.getText().toString(), secondMn.getText().toString(), gram.getText().toString());
                 feederData.enqueue(new Callback<FeederModel>() {
                     @Override
-                    public void onResponse(Call<FeederModel> call, Response<FeederModel> response) {
+                    public void onResponse(@NotNull Call<FeederModel> call, @NotNull Response<FeederModel> response) {
                         if (response.body() != null) {
                             dialog.dismiss();
 
@@ -341,7 +341,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
                     }
 
                     @Override
-                    public void onFailure(Call<FeederModel> call, Throwable throwable) {
+                    public void onFailure(@NotNull Call<FeederModel> call, @NotNull Throwable throwable) {
                         Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
                         Log.e(TAG, throwable.toString());
                     }
