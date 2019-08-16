@@ -20,6 +20,11 @@ public class SharedPrefMain {
         editor.apply();
     }
 
+    public void deleteValue() {
+        editor.clear();
+        editor.commit();
+    }
+
     public void saveStringCode(String key, String value) {
         editor.putString(key, value);
         editor.commit();
