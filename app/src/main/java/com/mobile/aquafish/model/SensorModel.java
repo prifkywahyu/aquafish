@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class SensorModel {
 
+    @SerializedName("aqua_code")
+    private String aquaCode;
     @SerializedName("type")
     private String typeSensor;
     @SerializedName("value")
@@ -15,7 +17,8 @@ public class SensorModel {
     @SerializedName("created")
     private String createdSensor;
 
-    public SensorModel(String typeSensor, String valueSensor, String statusSensor, String createdSensor) {
+    public SensorModel(String aquaCode, String typeSensor, String valueSensor, String statusSensor, String createdSensor) {
+        this.aquaCode = aquaCode;
         this.typeSensor = typeSensor;
         this.valueSensor = valueSensor;
         this.statusSensor = statusSensor;
@@ -52,6 +55,14 @@ public class SensorModel {
 
     public void setCreatedSensor(String createdSensor) {
         this.createdSensor = createdSensor;
+    }
+
+    public String getAquaCode() {
+        return aquaCode;
+    }
+
+    public void setAquaCode(String aquaCode) {
+        this.aquaCode = aquaCode;
     }
 
     public static class Report {

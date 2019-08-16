@@ -9,6 +9,7 @@
     <string name="feeder">Feeding</string>
     <string name="profile">More</string>
     <string name="emptyList">You have no feed schedule</string>
+    <string name="notFound">Your sensor data not found</string>
     <string name="monitor_data">Sensor Monitor</string>
     <string name="profile_not">Profile not available now</string>
     <string name="networks">Internet Connection</string>

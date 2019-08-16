@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +19,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mobile.aquafish.FragmentMain;
 import com.mobile.aquafish.MainActivity;
 import com.mobile.aquafish.R;
+import com.mobile.aquafish.SharedPrefMain;
 
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
+    AppCompatActivity activity;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     TextView email, about;
     Button logout;
+    SharedPrefMain prefMain;
 
     @SuppressLint("SetTextI18n")
     @Nullable
@@ -50,6 +54,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        activity = (AppCompatActivity) getActivity();
+        prefMain = new SharedPrefMain(activity);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         getPersonName();
@@ -58,15 +64,8 @@ public class ProfileFragment extends Fragment {
     }
 
     public void getPersonName() {
-        String bro = getString(R.string.emailOne);
-        String men = getString(R.string.emailTwo);
-
-        if (Objects.equals(firebaseUser.getEmail(), bro)) {
-            email.setText(R.string.personOne);
-        }
-        if (Objects.equals(firebaseUser.getEmail(), men)) {
-            email.setText(R.string.personTwo);
-        }
+        String bro = prefMain.getAquaName();
+        email.setText(bro);
     }
 
     public void dialogLogout() {

@@ -24,12 +24,23 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.mobile.aquafish.model.UserModel;
+import com.mobile.aquafish.rest.ApiClient;
+import com.mobile.aquafish.rest.ApiInterface;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
                     "(?=.*[0-9])" +         // at least 1 digit
@@ -44,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button login, toRegister;
     FirebaseAuth auth;
     ProgressDialog dialog;
+    SharedPrefMain prefMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         auth = FirebaseAuth.getInstance();
+        prefMain = new SharedPrefMain(this);
 
         email = findViewById(R.id.email_main);
         email.addTextChangedListener(new TextWatcher() {
@@ -135,6 +148,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if (user != null) {
+            Intent intent = new Intent(MainActivity.this, FragmentMain.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         String forMail = Objects.requireNonNull(email.getText()).toString().trim();
         String forPass = Objects.requireNonNull(pass.getText()).toString().trim();
@@ -169,6 +197,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void methodForLogin() {
+        final String getMail = Objects.requireNonNull(email.getText()).toString().trim();
+
         dialog = ProgressDialog.show(MainActivity.this, null, "Loading get data",
                 true, false);
 
@@ -180,8 +210,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dialog.dismiss();
 
                 if (task.isSuccessful()) {
+                    getFromDatabase();
+
                     Intent logSuccess = new Intent(MainActivity.this, FragmentMain.class);
                     logSuccess.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    logSuccess.putExtra("emailUser", getMail);
                     startActivity(logSuccess);
                     finish();
                 } else {
@@ -192,4 +225,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    public void getFromDatabase() {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<UserModel> userCall = apiInterface.getUser(Objects.requireNonNull(email.getText()).toString().trim());
+        userCall.enqueue(new Callback<UserModel>() {
+            @Override
+            public void onResponse(@NotNull Call<UserModel> call, @NotNull Response<UserModel> response) {
+                if (response.body() != null) {
+                    String codeAqua = response.body().getCode();
+                    String nameAqua = response.body().getName();
+                    Log.d(TAG, "User success to login");
+
+                    prefMain.saveStringCode(SharedPrefMain.AQUA_CODE, codeAqua);
+                    prefMain.saveStringName(SharedPrefMain.AQUA_NAME, nameAqua);
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<UserModel> call, @NotNull Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, t.toString());
+            }
+        });
+    }
+
 }

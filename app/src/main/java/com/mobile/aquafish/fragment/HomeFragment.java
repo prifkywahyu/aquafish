@@ -1,11 +1,13 @@
 package com.mobile.aquafish.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.mobile.aquafish.R;
 import com.mobile.aquafish.ReportTemp;
 import com.mobile.aquafish.ReportTurbid;
 import com.mobile.aquafish.ReportWlc;
+import com.mobile.aquafish.SharedPrefMain;
 import com.mobile.aquafish.model.SensorModel;
 import com.mobile.aquafish.rest.ApiClient;
 import com.mobile.aquafish.rest.ApiInterface;
@@ -38,13 +41,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = HomeFragment.class.getSimpleName();
     TextView date, timeText, valueTemp, statusTemp, valueTurbid, statusTurbid, valueWlc, statusWlc;
     Button reportTemp, reportTurbid, reportWlc;
+    SharedPrefMain main;
     int FOR_REFRESH = 12000;
+    AppCompatActivity activity;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View forView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        activity = (AppCompatActivity) getActivity();
+        main = new SharedPrefMain(Objects.requireNonNull(activity));
         reportWlc = forView.findViewById(R.id.actionForWlc);
         reportWlc.setOnClickListener(this);
         reportTemp = forView.findViewById(R.id.actionForTemp);
@@ -79,14 +86,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getValueStatus() {
+        String resultCode = Objects.requireNonNull(main.getAquaCode());
         String ID_TEMP = "101";
         String ID_TURBID = "202";
         String ID_WLC = "303";
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<SensorModel> temp = apiService.getTwoData(ID_TEMP);
+        Call<SensorModel> temp = apiService.getTwoData(resultCode, ID_TEMP);
         temp.enqueue(new Callback<SensorModel>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call<SensorModel> call, @NotNull Response<SensorModel> response) {
                 if (response.body() != null) {
@@ -96,6 +105,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                     valueTemp.setText(setValueTemp);
                     statusTemp.setText(setStatusTemp);
+                } else {
+                    valueTemp.setText("Null");
+                    statusTemp.setText("Not Found");
                 }
             }
 
@@ -106,8 +118,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        Call<SensorModel> turbid = apiService.getTwoData(ID_TURBID);
+        Call<SensorModel> turbid = apiService.getTwoData(resultCode, ID_TURBID);
         turbid.enqueue(new Callback<SensorModel>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call<SensorModel> call, @NotNull Response<SensorModel> response) {
                 if (response.body() != null) {
@@ -117,6 +130,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                     valueTurbid.setText(setValueTurbid);
                     statusTurbid.setText(setStatusTurbid);
+                } else {
+                    valueTurbid.setText("Null");
+                    statusTurbid.setText("Not Found");
                 }
             }
 
@@ -127,8 +143,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        Call<SensorModel> wlc = apiService.getTwoData(ID_WLC);
+        Call<SensorModel> wlc = apiService.getTwoData(resultCode, ID_WLC);
         wlc.enqueue(new Callback<SensorModel>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call<SensorModel> call, @NotNull Response<SensorModel> response) {
                 if (response.body() != null) {
@@ -138,6 +155,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                     valueWlc.setText(setValueWlc);
                     statusWlc.setText(setStatusWlc);
+                } else {
+                    valueWlc.setText("Null");
+                    statusWlc.setText("Not Found");
                 }
             }
 
