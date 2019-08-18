@@ -29,6 +29,6 @@ public interface ApiInterface {
                                    @Query("end_hour") String endHour, @Query("end_min") String endMint,
                                    @Query("delay") String delay);
 
-    @GET("feeder_read.php")
+    @GET("feeder_user.php")
     Call<FeederModel> getFeederData();
 }

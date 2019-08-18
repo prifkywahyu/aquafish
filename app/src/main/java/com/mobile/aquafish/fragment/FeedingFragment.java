@@ -76,6 +76,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
 
         Call<FeederModel> modelCall = apiInterface.getFeederData();
         modelCall.enqueue(new Callback<FeederModel>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call<FeederModel> call, @NotNull Response<FeederModel> response) {
                 if (response.body() != null) {
@@ -83,17 +84,27 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
                     createFeed.setEnabled(false);
 
                     String getStartHr = response.body().getStartHour();
+                    int start = Integer.valueOf(getStartHr);
                     String getStartMn = response.body().getStartMin();
                     String getEndHr = response.body().getEndHour();
                     String getEndMn = response.body().getEndMin();
                     String getDelay = response.body().getDelay();
                     Log.d(TAG, "Feed schedule successfully received data");
 
-                    startOne.setText(getStartHr);
-                    startTwo.setText(getStartMn);
-                    endOne.setText(getEndHr);
-                    endTwo.setText(getEndMn);
-                    weightDelay.setText(getDelay);
+                    if (start >= 0 && start <= 9) {
+                        startOne.setText("0" + getStartHr);
+                        startTwo.setText(getStartMn);
+                        endOne.setText(getEndHr);
+                        endTwo.setText(getEndMn);
+                        weightDelay.setText(getDelay);
+                    }
+                    else {
+                        startOne.setText(getStartHr);
+                        startTwo.setText(getStartMn);
+                        endOne.setText(getEndHr);
+                        endTwo.setText(getEndMn);
+                        weightDelay.setText(getDelay);
+                    }
                 }
                 else {
                     writeStart.setVisibility(View.GONE);

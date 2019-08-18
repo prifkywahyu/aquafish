@@ -116,6 +116,7 @@
             android:maxLines="1"
             tools:targetApi="o"
             android:importantForAutofill="no"
+            android:imeOptions="actionNext"
             android:inputType="number"
             tools:ignore="LabelFor"/>
 
@@ -142,6 +143,7 @@
             android:maxLines="1"
             tools:targetApi="o"
             android:importantForAutofill="no"
+            android:imeOptions="actionDone"
             android:inputType="number"
             tools:ignore="LabelFor"/>
     </LinearLayout>

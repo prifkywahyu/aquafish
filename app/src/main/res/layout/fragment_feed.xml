@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textSize="24sp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@android:color/black"
                     android:gravity="center_vertical"
                     android:fontFamily="@font/lato_bold"/>
 
@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textSize="24sp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@android:color/black"
                     android:gravity="center_vertical"
                     android:fontFamily="@font/lato_bold"/>
             </LinearLayout>
@@ -143,7 +143,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textSize="24sp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@android:color/black"
                     android:gravity="center_vertical"
                     android:fontFamily="@font/lato_bold"/>
 
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textSize="24sp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@android:color/black"
                     android:gravity="center_vertical"
                     android:fontFamily="@font/lato_bold"/>
             </LinearLayout>
@@ -202,7 +202,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textSize="24sp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@android:color/black"
                     android:gravity="center_vertical"
                     android:fontFamily="@font/lato_bold"/>
 
