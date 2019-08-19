@@ -86,12 +86,43 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
                     String getStartHr = response.body().getStartHour();
                     int start = Integer.valueOf(getStartHr);
                     String getStartMn = response.body().getStartMin();
+                    int started = Integer.valueOf(getStartMn);
                     String getEndHr = response.body().getEndHour();
+                    int end = Integer.valueOf(getEndHr);
                     String getEndMn = response.body().getEndMin();
+                    int ended = Integer.valueOf(getEndMn);
                     String getDelay = response.body().getDelay();
                     Log.d(TAG, "Feed schedule successfully received data");
 
-                    if (start >= 0 && start <= 9) {
+                    if ((start >= 0 && start <= 9) && (started >= 0 && started <= 9) && (end >= 0 && end <= 9) && (ended >= 0 && ended <= 9)) {
+                        startOne.setText("0" + getStartHr);
+                        startTwo.setText("0" + getStartMn);
+                        endOne.setText("0" + getEndHr);
+                        endTwo.setText("0" + getEndMn);
+                        weightDelay.setText(getDelay);
+                    }
+                    else if (start >= 0 && start <= 9 && (started >= 0 && started <= 9) && (ended >= 0 && ended <= 9)) {
+                        startOne.setText("0" + getStartHr);
+                        startTwo.setText("0" + getStartMn);
+                        endOne.setText(getEndHr);
+                        endTwo.setText("0" + getEndMn);
+                        weightDelay.setText(getDelay);
+                    }
+                    else if ((start >= 0 && start <= 9) && (end >= 0 && end <= 9)) {
+                        startOne.setText("0" + getStartHr);
+                        startTwo.setText(getStartMn);
+                        endOne.setText("0" + getEndHr);
+                        endTwo.setText(getEndMn);
+                        weightDelay.setText(getDelay);
+                    }
+                    else if ((started >= 0 && started <= 9) && (ended >= 0 && ended <= 9)) {
+                        startOne.setText(getStartHr);
+                        startTwo.setText("0" + getStartMn);
+                        endOne.setText(getEndHr);
+                        endTwo.setText("0" + getEndMn);
+                        weightDelay.setText(getDelay);
+                    }
+                    else if (start >= 0 && start <= 9) {
                         startOne.setText("0" + getStartHr);
                         startTwo.setText(getStartMn);
                         endOne.setText(getEndHr);
