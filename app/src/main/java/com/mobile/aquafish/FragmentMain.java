@@ -2,13 +2,14 @@ package com.mobile.aquafish;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mobile.aquafish.fragment.FeedingFragment;
 import com.mobile.aquafish.fragment.HomeFragment;
 import com.mobile.aquafish.fragment.ProfileFragment;
@@ -25,7 +26,7 @@ public class FragmentMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_main);
-        BottomNavigationView forNav = findViewById(R.id.nav_main);
+        BottomNavigationView forNav = findViewById(R.id.navMain);
 
         homeFragment = new HomeFragment();
         feedingFragment = new FeedingFragment();
@@ -36,7 +37,7 @@ public class FragmentMain extends AppCompatActivity {
             @SuppressLint("ResourceType")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+                switch(item.getItemId()) {
                     case R.id.navigation_home:
                         setFragment(homeFragment);
                         return true;
@@ -59,7 +60,7 @@ public class FragmentMain extends AppCompatActivity {
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_main, fragment);
+        fragmentTransaction.replace(R.id.frameMain, fragment);
         fragmentTransaction.commit();
     }
 

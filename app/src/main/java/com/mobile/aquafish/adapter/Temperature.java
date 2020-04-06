@@ -1,11 +1,12 @@
 package com.mobile.aquafish.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobile.aquafish.R;
 import com.mobile.aquafish.model.SensorModel;
@@ -14,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class AdapterTemp extends RecyclerView.Adapter<AdapterTemp.TempViewHolder> {
+public class Temperature extends RecyclerView.Adapter<Temperature.TempViewHolder> {
 
     private ArrayList<SensorModel> temp;
     private int rowLayout;
@@ -33,7 +34,7 @@ public class AdapterTemp extends RecyclerView.Adapter<AdapterTemp.TempViewHolder
         }
     }
 
-    public AdapterTemp(ArrayList<SensorModel> temp, int rowLayout, Context context) {
+    public Temperature(ArrayList<SensorModel> temp, int rowLayout, Context context) {
         this.temp = temp;
         this.rowLayout = rowLayout;
         this.context = context;
@@ -41,9 +42,9 @@ public class AdapterTemp extends RecyclerView.Adapter<AdapterTemp.TempViewHolder
 
     @NotNull
     @Override
-    public AdapterTemp.TempViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+    public Temperature.TempViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        return new AdapterTemp.TempViewHolder(view);
+        return new Temperature.TempViewHolder(view);
     }
 
     @Override

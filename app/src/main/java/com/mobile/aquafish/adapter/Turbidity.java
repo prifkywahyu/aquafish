@@ -1,11 +1,12 @@
 package com.mobile.aquafish.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobile.aquafish.R;
 import com.mobile.aquafish.model.SensorModel;
@@ -14,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class AdapterTurbid extends RecyclerView.Adapter<AdapterTurbid.TurbidViewHolder>{
+public class Turbidity extends RecyclerView.Adapter<Turbidity.TurbidViewHolder>{
 
     private ArrayList<SensorModel> turbid;
     private int rowLayout;
@@ -33,7 +34,7 @@ public class AdapterTurbid extends RecyclerView.Adapter<AdapterTurbid.TurbidView
         }
     }
 
-    public AdapterTurbid(ArrayList<SensorModel> turbid, int rowLayout, Context context) {
+    public Turbidity(ArrayList<SensorModel> turbid, int rowLayout, Context context) {
         this.turbid = turbid;
         this.rowLayout = rowLayout;
         this.context = context;
@@ -41,13 +42,13 @@ public class AdapterTurbid extends RecyclerView.Adapter<AdapterTurbid.TurbidView
 
     @NotNull
     @Override
-    public AdapterTurbid.TurbidViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+    public Turbidity.TurbidViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        return new AdapterTurbid.TurbidViewHolder(view);
+        return new Turbidity.TurbidViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NotNull AdapterTurbid.TurbidViewHolder holder, final int position) {
+    public void onBindViewHolder(@NotNull Turbidity.TurbidViewHolder holder, final int position) {
         holder.turbidSensorDate.setText(turbid.get(position).getCreatedSensor());
         holder.turbidValue.setText(turbid.get(position).getValueSensor());
         holder.turbidStatus.setText(turbid.get(position).getStatusSensor());

@@ -1,24 +1,25 @@
 package com.mobile.aquafish;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mobile.aquafish.adapter.AdapterTemp;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.mobile.aquafish.adapter.Temperature;
 import com.mobile.aquafish.model.SensorModel;
-import com.mobile.aquafish.rest.ApiClient;
-import com.mobile.aquafish.rest.ApiInterface;
+import com.mobile.aquafish.rest.Client;
+import com.mobile.aquafish.rest.Interface;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -27,10 +28,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReportTemp extends AppCompatActivity {
+public class ReportTemperature extends AppCompatActivity {
 
-    private final static String TYPE_TEMP = "101";
-    SharedPrefMain prefMain;
+    private final static String typeTemperature = "101";
+    SharedPreferences prefMain;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,26 +40,26 @@ public class ReportTemp extends AppCompatActivity {
 
         ActionBar bar = getSupportActionBar();
         Objects.requireNonNull(bar).setTitle("Temperature Report");
-        prefMain = new SharedPrefMain(this);
+        prefMain = new SharedPreferences(this);
         String getCode = Objects.requireNonNull(prefMain.getAquaCode());
 
         final TextView textView = findViewById(R.id.sorryFound);
-        final RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
-        Call<SensorModel.Report> listCall = service.getSensorData(getCode, TYPE_TEMP);
+        Interface service = Client.getClient().create(Interface.class);
+        Call<SensorModel.Report> listCall = service.getSensorData(getCode, typeTemperature);
         listCall.enqueue(new Callback<SensorModel.Report>() {
             @Override
             public void onResponse(@NotNull Call<SensorModel.Report> call, @NotNull Response<SensorModel.Report> response) {
-                if (response.body() != null) {
+                if(response.body() != null) {
                     SensorModel.Report report = response.body();
 
                     ArrayList<SensorModel> sensorModels = Objects.requireNonNull(report).records;
-                    AdapterTemp adapterTemp = new AdapterTemp(sensorModels, R.layout.report_temp, getApplicationContext());
+                    Temperature temperature = new Temperature(sensorModels, R.layout.report_temperature, getApplicationContext());
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
-                    recyclerView.setAdapter(adapterTemp);
+                    recyclerView.setAdapter(temperature);
                     textView.setVisibility(View.GONE);
                 } else {
                     recyclerView.setVisibility(View.GONE);

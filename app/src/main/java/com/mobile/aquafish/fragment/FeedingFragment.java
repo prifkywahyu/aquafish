@@ -1,12 +1,9 @@
 package com.mobile.aquafish.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -20,14 +17,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.mobile.aquafish.FragmentMain;
 import com.mobile.aquafish.InputFilterMinMax;
 import com.mobile.aquafish.R;
 import com.mobile.aquafish.model.FeederModel;
-import com.mobile.aquafish.rest.ApiClient;
-import com.mobile.aquafish.rest.ApiInterface;
+import com.mobile.aquafish.rest.Client;
+import com.mobile.aquafish.rest.Interface;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -37,10 +38,10 @@ import retrofit2.Response;
 
 public class FeedingFragment extends Fragment implements View.OnClickListener {
 
-    private static final String TAG = FeedingFragment.class.getSimpleName();
-    Button createFeed, updateFeed;
-    LinearLayout first, second, third, fourth;
-    TextView startOne, startTwo, endOne, endTwo, weightDelay, writeStart, writeEnd, writeWeight;
+    private static final String tagged = FeedingFragment.class.getSimpleName();
+    private Button createFeed, updateFeed;
+    private LinearLayout first, second, third, fourth;
+    private TextView startOne, startTwo, endOne, endTwo, weightDelay, writeStart, writeEnd, writeWeight;
 
     @Nullable
     @Override
@@ -72,72 +73,66 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getFeedingData() {
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Interface getInterface = Client.getClient().create(Interface.class);
 
-        Call<FeederModel> modelCall = apiInterface.getFeederData();
+        Call<FeederModel> modelCall = getInterface.getFeederData();
         modelCall.enqueue(new Callback<FeederModel>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call<FeederModel> call, @NotNull Response<FeederModel> response) {
-                if (response.body() != null) {
+                if(response.body() != null) {
                     first.setVisibility(View.GONE);
                     createFeed.setEnabled(false);
+                    Log.d(tagged, "Feed schedule successfully received data");
 
                     String getStartHr = response.body().getStartHour();
-                    int start = Integer.valueOf(getStartHr);
+                    int start = Integer.parseInt(getStartHr);
                     String getStartMn = response.body().getStartMin();
-                    int started = Integer.valueOf(getStartMn);
+                    int started = Integer.parseInt(getStartMn);
                     String getEndHr = response.body().getEndHour();
-                    int end = Integer.valueOf(getEndHr);
+                    int end = Integer.parseInt(getEndHr);
                     String getEndMn = response.body().getEndMin();
-                    int ended = Integer.valueOf(getEndMn);
+                    int ended = Integer.parseInt(getEndMn);
                     String getDelay = response.body().getDelay();
-                    Log.d(TAG, "Feed schedule successfully received data");
 
-                    if ((start >= 0 && start <= 9) && (started >= 0 && started <= 9) && (end >= 0 && end <= 9) && (ended >= 0 && ended <= 9)) {
+                    if((start >= 0 && start <= 9) && (started >= 0 && started <= 9) && (end >= 0 && end <= 9) && (ended >= 0 && ended <= 9)) {
                         startOne.setText("0" + getStartHr);
                         startTwo.setText("0" + getStartMn);
                         endOne.setText("0" + getEndHr);
                         endTwo.setText("0" + getEndMn);
                         weightDelay.setText(getDelay);
-                    }
-                    else if (start >= 0 && start <= 9 && (started >= 0 && started <= 9) && (ended >= 0 && ended <= 9)) {
+                    } else if(start >= 0 && start <= 9 && (started >= 0 && started <= 9) && (ended >= 0 && ended <= 9)) {
                         startOne.setText("0" + getStartHr);
                         startTwo.setText("0" + getStartMn);
                         endOne.setText(getEndHr);
                         endTwo.setText("0" + getEndMn);
                         weightDelay.setText(getDelay);
-                    }
-                    else if ((start >= 0 && start <= 9) && (end >= 0 && end <= 9)) {
+                    } else if((start >= 0 && start <= 9) && (end >= 0 && end <= 9)) {
                         startOne.setText("0" + getStartHr);
                         startTwo.setText(getStartMn);
                         endOne.setText("0" + getEndHr);
                         endTwo.setText(getEndMn);
                         weightDelay.setText(getDelay);
-                    }
-                    else if ((started >= 0 && started <= 9) && (ended >= 0 && ended <= 9)) {
+                    } else if((started >= 0 && started <= 9) && (ended >= 0 && ended <= 9)) {
                         startOne.setText(getStartHr);
                         startTwo.setText("0" + getStartMn);
                         endOne.setText(getEndHr);
                         endTwo.setText("0" + getEndMn);
                         weightDelay.setText(getDelay);
-                    }
-                    else if (start >= 0 && start <= 9) {
+                    } else if(start >= 0 && start <= 9) {
                         startOne.setText("0" + getStartHr);
                         startTwo.setText(getStartMn);
                         endOne.setText(getEndHr);
                         endTwo.setText(getEndMn);
                         weightDelay.setText(getDelay);
-                    }
-                    else {
+                    } else {
                         startOne.setText(getStartHr);
                         startTwo.setText(getStartMn);
                         endOne.setText(getEndHr);
                         endTwo.setText(getEndMn);
                         weightDelay.setText(getDelay);
                     }
-                }
-                else {
+                } else {
                     writeStart.setVisibility(View.GONE);
                     writeEnd.setVisibility(View.GONE);
                     writeWeight.setVisibility(View.GONE);
@@ -149,14 +144,14 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure (@NotNull Call <FeederModel> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call <FeederModel> call, @NotNull Throwable t) {
                 Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, t.toString());
+                Log.e(tagged, t.toString());
             }
         });
     }
 
-    public void dialogCreate() {
+    private void dialogCreate() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
         LayoutInflater inflater = this.getLayoutInflater();
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.schedule_popup, null);
@@ -167,7 +162,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
         dialog.show();
 
         TextView title = view.findViewById(R.id.createTitle);
-        title.setText(R.string.create_feed);
+        title.setText(R.string.createFeed);
         final EditText gram = view.findViewById(R.id.feedGram);
         final EditText secondHr = view.findViewById(R.id.secondHour);
         final EditText secondMn = view.findViewById(R.id.secondMinute);
@@ -227,16 +222,16 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
         saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                Call<FeederModel> feederData = apiInterface.postSchedule(firstHr.getText().toString(), firstMn.getText().toString(),
+                Interface getInterface = Client.getClient().create(Interface.class);
+                Call<FeederModel> feederData = getInterface.postSchedule(firstHr.getText().toString(), firstMn.getText().toString(),
                         secondHr.getText().toString(), secondMn.getText().toString(), gram.getText().toString());
                 feederData.enqueue(new Callback<FeederModel>() {
                     @Override
                     public void onResponse(@NotNull Call<FeederModel> call, @NotNull Response<FeederModel> response) {
-                        if (response.body() != null) {
+                        if(response.body() != null) {
                             dialog.dismiss();
 
-                            Log.d(TAG, "Successfully sent data to database.");
+                            Log.d(tagged, "Successfully sent data to database.");
                             Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), "Success to create scheduler!", Toast.LENGTH_SHORT).show();
 
                             final Handler refresh = new Handler();
@@ -253,14 +248,14 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onFailure(@NotNull Call<FeederModel> call, @NotNull Throwable throwable) {
                         Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, throwable.toString());
+                        Log.e(tagged, throwable.toString());
                     }
                 });
             }
         });
     }
 
-    public void dialogUpdate() {
+    private void dialogUpdate() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
         LayoutInflater inflater = this.getLayoutInflater();
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.schedule_popup, null);
@@ -271,7 +266,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
         dialog.show();
 
         TextView title = view.findViewById(R.id.createTitle);
-        title.setText(R.string.update_feed);
+        title.setText(R.string.updateFeed);
         final EditText gram = view.findViewById(R.id.feedGram);
         final EditText secondHr = view.findViewById(R.id.secondHour);
         final EditText secondMn = view.findViewById(R.id.secondMinute);
@@ -318,18 +313,18 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<FeederModel> feederGet = apiInterface.getFeederData();
+        Interface getInterface = Client.getClient().create(Interface.class);
+        Call<FeederModel> feederGet = getInterface.getFeederData();
         feederGet.enqueue(new Callback<FeederModel>() {
             @Override
             public void onResponse(@NotNull Call<FeederModel> call, @NotNull Response<FeederModel> response) {
-                if (response.body() != null) {
+                if(response.body() != null) {
                     String getStartHr = response.body().getStartHour();
                     String getStartMn = response.body().getStartMin();
                     String getEndHr = response.body().getEndHour();
                     String getEndMn = response.body().getEndMin();
                     String getDelay = response.body().getDelay();
-                    Log.d(TAG, "Feed schedule successfully received data");
+                    Log.d(tagged, "Feed schedule successfully received data");
 
                     firstHr.setText(getStartHr);
                     firstMn.setText(getStartMn);
@@ -342,7 +337,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(@NotNull Call<FeederModel> call, @NotNull Throwable throwable) {
                 Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, throwable.toString());
+                Log.e(tagged, throwable.toString());
             }
         });
 
@@ -359,16 +354,16 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
         saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                Call<FeederModel> feederData = apiInterface.postSchedule(firstHr.getText().toString(), firstMn.getText().toString(),
+                Interface getInterface = Client.getClient().create(Interface.class);
+                Call<FeederModel> feederData = getInterface.postSchedule(firstHr.getText().toString(), firstMn.getText().toString(),
                         secondHr.getText().toString(), secondMn.getText().toString(), gram.getText().toString());
                 feederData.enqueue(new Callback<FeederModel>() {
                     @Override
                     public void onResponse(@NotNull Call<FeederModel> call, @NotNull Response<FeederModel> response) {
-                        if (response.body() != null) {
+                        if(response.body() != null) {
                             dialog.dismiss();
 
-                            Log.d(TAG, "Successfully update data to database.");
+                            Log.d(tagged, "Successfully update data to database.");
                             Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), "Success to update scheduler!", Toast.LENGTH_SHORT).show();
 
                             final Handler refresh = new Handler();
@@ -385,7 +380,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onFailure(@NotNull Call<FeederModel> call, @NotNull Throwable throwable) {
                         Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, throwable.toString());
+                        Log.e(tagged, throwable.toString());
                     }
                 });
             }
@@ -394,7 +389,7 @@ public class FeedingFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        switch(v.getId()) {
             case R.id.addFeed:
                 dialogCreate();
                 break;

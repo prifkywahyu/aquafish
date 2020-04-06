@@ -1,19 +1,20 @@
 package com.mobile.aquafish.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobile.aquafish.R;
 import com.mobile.aquafish.model.SensorModel;
 
 import java.util.ArrayList;
 
-public class AdapterWlc extends RecyclerView.Adapter<AdapterWlc.WlcViewHolder> {
+public class WaterLevel extends RecyclerView.Adapter<WaterLevel.WlcViewHolder> {
 
     private ArrayList<SensorModel> wlc;
     private int rowLayout;
@@ -32,7 +33,7 @@ public class AdapterWlc extends RecyclerView.Adapter<AdapterWlc.WlcViewHolder> {
         }
     }
 
-    public AdapterWlc(ArrayList<SensorModel> wlc, int rowLayout, Context context) {
+    public WaterLevel(ArrayList<SensorModel> wlc, int rowLayout, Context context) {
         this.wlc = wlc;
         this.rowLayout = rowLayout;
         this.context = context;
@@ -40,13 +41,13 @@ public class AdapterWlc extends RecyclerView.Adapter<AdapterWlc.WlcViewHolder> {
 
     @NonNull
     @Override
-    public AdapterWlc.WlcViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public WaterLevel.WlcViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);
-        return new AdapterWlc.WlcViewHolder(view);
+        return new WaterLevel.WlcViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterWlc.WlcViewHolder wlcViewHolder, final int ignite) {
+    public void onBindViewHolder(@NonNull WaterLevel.WlcViewHolder wlcViewHolder, final int ignite) {
         wlcViewHolder.wlcSensorDate.setText(wlc.get(ignite).getCreatedSensor());
         wlcViewHolder.wlcValue.setText(wlc.get(ignite).getValueSensor());
         wlcViewHolder.wlcStatus.setText(wlc.get(ignite).getStatusSensor());

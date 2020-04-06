@@ -3,12 +3,6 @@ package com.mobile.aquafish;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -21,15 +15,22 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mobile.aquafish.model.UserModel;
-import com.mobile.aquafish.rest.ApiClient;
-import com.mobile.aquafish.rest.ApiInterface;
+import com.mobile.aquafish.rest.Client;
+import com.mobile.aquafish.rest.Interface;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -40,7 +41,7 @@ import retrofit2.Response;
 
 public class MainRegister extends AppCompatActivity implements View.OnClickListener {
 
-    private static final Pattern PATTERN_CODE =
+    private static final Pattern codePattern =
             Pattern.compile("^" +
                     "(?=.*[0-9])" +         // at least 1 digit
                     "(?=.*[a-z])" +         // at least 1 lower case
@@ -49,7 +50,7 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
                     ".{8,20}" +             // 8 until 20 characters
                     "$");
 
-    private static final String TAG = MainRegister.class.getSimpleName();
+    private static final String tagged = MainRegister.class.getSimpleName();
     TextInputLayout nameBox, mailBox, codeBox, aquaBox;
     TextInputEditText name, mail, code, aqua;
     Button register, toLogin;
@@ -73,7 +74,7 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         auth = FirebaseAuth.getInstance();
 
-        name = findViewById(R.id.name_slave);
+        name = findViewById(R.id.nameSlave);
         name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -87,7 +88,7 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
             public void afterTextChanged(Editable s) {
                 String inputName = Objects.requireNonNull(name.getText()).toString().trim();
 
-                if (inputName.isEmpty()) {
+                if(inputName.isEmpty()) {
                     nameBox.setErrorEnabled(true);
                     nameBox.setError("Field can not be empty");
                     register.setClickable(false);
@@ -100,7 +101,7 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        aqua = findViewById(R.id.code_slave);
+        aqua = findViewById(R.id.codeSlave);
         aqua.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -114,7 +115,7 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
             public void afterTextChanged(Editable s) {
                 String inputAqua = Objects.requireNonNull(aqua.getText()).toString().trim();
 
-                if (inputAqua.isEmpty()) {
+                if(inputAqua.isEmpty()) {
                     aquaBox.setErrorEnabled(true);
                     aquaBox.setError("Field can not be empty");
                     register.setClickable(false);
@@ -127,7 +128,7 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        mail = findViewById(R.id.email_slave);
+        mail = findViewById(R.id.emailSlave);
         mail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -141,11 +142,11 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
             public void afterTextChanged(Editable s) {
                 String inputMail = Objects.requireNonNull(mail.getText()).toString().trim();
 
-                if (inputMail.isEmpty()) {
+                if(inputMail.isEmpty()) {
                     mailBox.setErrorEnabled(true);
                     mailBox.setError("Field can not be empty");
                     register.setClickable(false);
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(inputMail).matches()) {
+                } else if(!Patterns.EMAIL_ADDRESS.matcher(inputMail).matches()) {
                     mailBox.setErrorEnabled(true);
                     mailBox.setError("Email format is incorrect");
                     register.setClickable(false);
@@ -158,9 +159,9 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        code = findViewById(R.id.password_slave);
+        code = findViewById(R.id.passwordSlave);
         code.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        code.setTypeface(ResourcesCompat.getFont(this, R.font.lato_regular));
+        code.setTypeface(ResourcesCompat.getFont(this, R.font.font_regular));
         code.setTransformationMethod(new PasswordTransformationMethod());
         code.addTextChangedListener(new TextWatcher() {
             @Override
@@ -175,11 +176,11 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
             public void afterTextChanged(Editable s) {
                 String inputCode = Objects.requireNonNull(code.getText()).toString().trim();
 
-                if (inputCode.isEmpty()) {
+                if(inputCode.isEmpty()) {
                     codeBox.setErrorEnabled(true);
                     codeBox.setError("Field can not be empty");
                     register.setClickable(false);
-                } else if (!PATTERN_CODE.matcher(inputCode).matches()) {
+                } else if(!codePattern.matcher(inputCode).matches()) {
                     codeBox.setErrorEnabled(true);
                     codeBox.setError("Password format is incorrect");
                     register.setClickable(false);
@@ -195,9 +196,10 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
         }
+
         return super.onKeyDown(keyCode, event);
     }
 
@@ -208,14 +210,14 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
         String forMail = Objects.requireNonNull(mail.getText()).toString().trim();
         String forPass = Objects.requireNonNull(code.getText()).toString().trim();
 
-        switch (v.getId()) {
+        switch(v.getId()) {
             case R.id.buttonToLogin:
                 Intent backed = new Intent(MainRegister.this, MainActivity.class);
                 startActivity(backed);
                 finish();
                 break;
             case R.id.buttonRegister:
-                if (forName.isEmpty() & forAqua.isEmpty() & forMail.isEmpty() & forPass.isEmpty()) {
+                if(forName.isEmpty() & forAqua.isEmpty() & forMail.isEmpty() & forPass.isEmpty()) {
                     nameBox.setErrorEnabled(true);
                     nameBox.setError("Field can not be empty");
                     aquaBox.setErrorEnabled(true);
@@ -224,19 +226,19 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
                     mailBox.setError("Field can not be empty");
                     codeBox.setErrorEnabled(true);
                     codeBox.setError("Field can not be empty");
-                } else if (forName.isEmpty()) {
+                } else if(forName.isEmpty()) {
                     nameBox.setErrorEnabled(true);
                     nameBox.setError("Field can not be empty");
-                } else if (forAqua.isEmpty()) {
+                } else if(forAqua.isEmpty()) {
                     aquaBox.setErrorEnabled(true);
                     aquaBox.setError("Field can not be empty");
-                } else if (forMail.isEmpty()) {
+                } else if(forMail.isEmpty()) {
                     mailBox.setErrorEnabled(true);
                     mailBox.setError("Field can not be empty");
-                } else if (forPass.isEmpty()) {
+                } else if(forPass.isEmpty()) {
                     codeBox.setErrorEnabled(true);
                     codeBox.setError("Field can not be empty");
-                } else if (nameBox.isErrorEnabled() | aquaBox.isErrorEnabled() | mailBox.isErrorEnabled() | codeBox.isErrorEnabled()) {
+                } else if(nameBox.isErrorEnabled() | aquaBox.isErrorEnabled() | mailBox.isErrorEnabled() | codeBox.isErrorEnabled()) {
                     register.setClickable(false);
                 } else {
                     register.setClickable(true);
@@ -254,8 +256,8 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User success to register");
+                        if(task.isSuccessful()) {
+                            Log.d(tagged, "User success to register");
                         } else {
                             Log.e("Register Error", Objects.requireNonNull(task.getException()).toString());
                         }
@@ -267,15 +269,15 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
         dialog = ProgressDialog.show(MainRegister.this, null, "Loading to send data",
                 true, false);
 
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<UserModel> userModelCall = apiInterface.postUserData(Objects.requireNonNull(name.getText()).toString().trim(),
+        Interface getInterface = Client.getClient().create(Interface.class);
+        Call<UserModel> userModelCall = getInterface.postUserData(Objects.requireNonNull(name.getText()).toString().trim(),
                 Objects.requireNonNull(mail.getText()).toString().trim(), Objects.requireNonNull(aqua.getText()).toString().trim());
         userModelCall.enqueue(new Callback<UserModel>() {
             @Override
             public void onResponse(@NotNull Call<UserModel> call, @NotNull Response<UserModel> response) {
-                if (response.body() != null) {
+                if(response.body() != null) {
                     dialog.dismiss();
-                    Log.d(TAG, "User success to register");
+                    Log.d(tagged, "User success to register");
                     Toast.makeText(MainRegister.this, "User has been registered and can login", Toast.LENGTH_SHORT).show();
 
                     name.getText().clear();
@@ -288,7 +290,7 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(@NotNull Call<UserModel> call, @NotNull Throwable t) {
                 Toast.makeText(MainRegister.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, t.toString());
+                Log.e(tagged, t.toString());
             }
         });
     }

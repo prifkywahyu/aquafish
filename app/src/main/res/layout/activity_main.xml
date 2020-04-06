@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:contentDescription="@string/app_name"
+                android:contentDescription="@string/appName"
                 android:src="@mipmap/hugo_welcome"
                 android:layout_marginStart="0dp"
                 android:layout_marginEnd="10dp"/>
@@ -93,8 +93,8 @@
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/email_main"
-                    android:hint="@string/input_email"
+                    android:id="@+id/emailMain"
+                    android:hint="@string/inputEmail"
                     android:ems="10"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
@@ -116,8 +116,8 @@
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/password_main"
-                    android:hint="@string/input_password"
+                    android:id="@+id/passwordMain"
+                    android:hint="@string/inputPassword"
                     android:ems="10"
                     android:imeOptions="actionDone"
                     android:maxLength="20"
@@ -134,7 +134,7 @@
             android:layout_below="@id/fieldLogin"
             android:layout_marginHorizontal="30dp"
             android:layout_marginBottom="30dp"
-            android:text="@string/register_state"
+            android:text="@string/registerState"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textAlignment="center"
@@ -160,5 +160,4 @@
         android:textColor="@android:color/white"
         android:background="@drawable/field_button"
         tools:targetApi="o"/>
-
 </RelativeLayout>

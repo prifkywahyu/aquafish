@@ -1,30 +1,32 @@
 <resources>
-    <string name="app_name">Aquafish</string>
+    <string name="appName">Aquafish</string>
     <string name="welcome">Welcome to Aquafish!</string>
     <string name="login">Login</string>
     <string name="statement">Login with your registered account</string>
-    <string name="input_email">Input email</string>
-    <string name="input_password">Input password</string>
+    <string name="inputEmail">Input email</string>
+    <string name="inputPassword">Input password</string>
+    <string name="inputName">Input name</string>
+    <string name="aquaCode">Aqua code</string>
     <string name="home">Home</string>
     <string name="feeder">Feeding</string>
     <string name="profile">More</string>
     <string name="emptyList">You have no feed schedule</string>
     <string name="notFound">Your sensor data not found</string>
-    <string name="monitor_data">Sensor Monitor</string>
-    <string name="profile_not">Profile not available now</string>
-    <string name="networks">Internet Connection</string>
-    <string name="net_state">We found that your internet connection is lost, please turn on.</string>
-    <string name="logout_state">Are you sure want to logged out from this application?</string>
+    <string name="monitorData">Sensor Monitor</string>
+    <string name="profileNotAvailable">Profile not available now</string>
+    <string name="network">Internet Connection</string>
+    <string name="networkState">We found that your internet connection is lost, please turn on.</string>
+    <string name="logoutState">Are you sure want to logged out from this application?</string>
     <string name="cancel">Cancel</string>
     <string name="retry">Retry</string>
     <string name="exit">Exit</string>
-    <string name="wlc">Water Level Sensor</string>
-    <string name="temp">Temperature Sensor</string>
-    <string name="turbid">Turbidity Sensor</string>
-    <string name="unit_of_cel">°C</string>
-    <string name="unit_of_wlc">cm</string>
-    <string name="unit_of_tur">NTU</string>
-    <string name="feed_add">Create</string>
+    <string name="waterLevel">Water Level Sensor</string>
+    <string name="temperature">Temperature Sensor</string>
+    <string name="turbidity">Turbidity Sensor</string>
+    <string name="temperatureUnit">°C</string>
+    <string name="waterLevelUnit">cm</string>
+    <string name="turbidityUnit">NTU</string>
+    <string name="feedAdd">Create</string>
     <string name="settings">Logout Now</string>
     <string name="logout">Logout</string>
     <string name="number">00</string>
@@ -37,9 +39,9 @@
     <string name="save">Save</string>
     <string name="update">Update</string>
     <string name="strip">:</string>
-    <string name="create_feed">Create Schedule</string>
-    <string name="update_feed">Update Schedule</string>
-    <string name="script_create">Feeding schedule will be set for three times per day, create now!</string>
+    <string name="createFeed">Create Schedule</string>
+    <string name="updateFeed">Update Schedule</string>
+    <string name="scriptCreate">Feeding schedule will be set for three times per day, create now!</string>
     <string name="feedWeight">Feed Weight</string>
     <string name="firstType">First Time</string>
     <string name="secondType">Second Time</string>
@@ -48,11 +50,13 @@
     <string name="normal">Processing</string>
     <string name="gram">gram</string>
     <string name="forGram">1.2</string>
-    <string name="login_state">Already have an account? Login</string>
-    <string name="register_state">Don\'t have an account? Register</string>
+    <string name="loginState">Already have an account? Login</string>
+    <string name="registerState">Don\'t have an account? Register</string>
     <string name="register">Register</string>
     <string name="newAccount">Register to Aquafish!</string>
     <string name="formRegister">Please fill the register form</string>
-    <string name="input_name">Input name</string>
-    <string name="aqua_code">Aqua Code</string>
+    <string name="introduce">Hi! Let us introduced to you all, we are Aquafish, an application for water quality monitoring and automatic feeding to simplify your pet maintenance." +
+                "\n\nAquafish are built by two students, they are Muhammad Naufal and Rifky Wahyu Pratama. Both of them, want to create an efficiency and effective pet caring without worried about your time, job and etc." +
+                "\n\nOwner of pet can enjoy the time, doing job with a happy feeling. Hope we can help your problem with pet." +
+                "\n\nWith love, Aquafish Team.</string>
 </resources>

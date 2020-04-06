@@ -4,10 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +12,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.mobile.aquafish.FragmentMain;
 import com.mobile.aquafish.R;
-import com.mobile.aquafish.ReportTemp;
-import com.mobile.aquafish.ReportTurbid;
-import com.mobile.aquafish.ReportWlc;
-import com.mobile.aquafish.SharedPrefMain;
+import com.mobile.aquafish.ReportTemperature;
+import com.mobile.aquafish.ReportTurbidity;
+import com.mobile.aquafish.ReportWaterLevel;
+import com.mobile.aquafish.SharedPreferences;
 import com.mobile.aquafish.model.SensorModel;
-import com.mobile.aquafish.rest.ApiClient;
-import com.mobile.aquafish.rest.ApiInterface;
+import com.mobile.aquafish.rest.Client;
+import com.mobile.aquafish.rest.Interface;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -38,28 +39,31 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    private static final String TAG = HomeFragment.class.getSimpleName();
-    TextView date, timeText, valueTemp, statusTemp, valueTurbid, statusTurbid, valueWlc, statusWlc;
-    Button reportTemp, reportTurbid, reportWlc;
-    SharedPrefMain main;
-    int FOR_REFRESH = 12000;
-    AppCompatActivity activity;
+    private static final String tagged = HomeFragment.class.getSimpleName();
+    private TextView valueTemp;
+    private TextView statusTemp;
+    private TextView valueTurbid;
+    private TextView statusTurbid;
+    private TextView valueWlc;
+    private TextView statusWlc;
+    private SharedPreferences main;
+    private int timeRefresh = 12000;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View forView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        activity = (AppCompatActivity) getActivity();
-        main = new SharedPrefMain(Objects.requireNonNull(activity));
-        reportWlc = forView.findViewById(R.id.actionForWlc);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        main = new SharedPreferences(Objects.requireNonNull(activity));
+        Button reportWlc = forView.findViewById(R.id.actionForWlc);
         reportWlc.setOnClickListener(this);
-        reportTemp = forView.findViewById(R.id.actionForTemp);
+        Button reportTemp = forView.findViewById(R.id.actionForTemp);
         reportTemp.setOnClickListener(this);
-        reportTurbid = forView.findViewById(R.id.actionForTurbid);
+        Button reportTurbid = forView.findViewById(R.id.actionForTurbid);
         reportTurbid.setOnClickListener(this);
-        date = forView.findViewById(R.id.dateText);
-        timeText = forView.findViewById(R.id.timeText);
+        TextView date = forView.findViewById(R.id.dateText);
+        TextView times = forView.findViewById(R.id.timeText);
         valueTemp = forView.findViewById(R.id.valueForTemp);
         statusTemp = forView.findViewById(R.id.statusForTemp);
         valueTurbid = forView.findViewById(R.id.valueForTurbid);
@@ -78,30 +82,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void run() {
                 getValueStatus();
-                refresh.postDelayed(this, FOR_REFRESH);
+                refresh.postDelayed(this, timeRefresh);
             }
-        }; refresh.postDelayed(runnable, FOR_REFRESH);
+        }; refresh.postDelayed(runnable, timeRefresh);
 
         return forView;
     }
 
     private void getValueStatus() {
         String resultCode = Objects.requireNonNull(main.getAquaCode());
-        String ID_TEMP = "101";
-        String ID_TURBID = "202";
-        String ID_WLC = "303";
+        String idTemperature = "101";
+        String idTurbidity = "202";
+        String idWaterLevel = "303";
 
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Interface apiService = Client.getClient().create(Interface.class);
 
-        Call<SensorModel> temp = apiService.getTwoData(resultCode, ID_TEMP);
+        Call<SensorModel> temp = apiService.getTwoData(resultCode, idTemperature);
         temp.enqueue(new Callback<SensorModel>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call<SensorModel> call, @NotNull Response<SensorModel> response) {
-                if (response.body() != null) {
+                if(response.body() != null) {
                     String setValueTemp = response.body().getValueSensor();
                     String setStatusTemp = response.body().getStatusSensor();
-                    Log.d(TAG, "Temp successfully received data");
+                    Log.d(tagged, "Temp successfully received data");
 
                     valueTemp.setText(setValueTemp);
                     statusTemp.setText(setStatusTemp);
@@ -114,19 +118,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(@NotNull Call<SensorModel> call, @NotNull Throwable t) {
                 Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, t.toString());
+                Log.e(tagged, t.toString());
             }
         });
 
-        Call<SensorModel> turbid = apiService.getTwoData(resultCode, ID_TURBID);
+        Call<SensorModel> turbid = apiService.getTwoData(resultCode, idTurbidity);
         turbid.enqueue(new Callback<SensorModel>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call<SensorModel> call, @NotNull Response<SensorModel> response) {
-                if (response.body() != null) {
+                if(response.body() != null) {
                     String setValueTurbid = response.body().getValueSensor();
                     String setStatusTurbid = response.body().getStatusSensor();
-                    Log.d(TAG, "Turbid successfully received data");
+                    Log.d(tagged, "Turbid successfully received data");
 
                     valueTurbid.setText(setValueTurbid);
                     statusTurbid.setText(setStatusTurbid);
@@ -139,19 +143,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(@NotNull Call<SensorModel> call, @NotNull Throwable t) {
                 Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, t.toString());
+                Log.e(tagged, t.toString());
             }
         });
 
-        Call<SensorModel> wlc = apiService.getTwoData(resultCode, ID_WLC);
+        Call<SensorModel> wlc = apiService.getTwoData(resultCode, idWaterLevel);
         wlc.enqueue(new Callback<SensorModel>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call<SensorModel> call, @NotNull Response<SensorModel> response) {
-                if (response.body() != null) {
+                if(response.body() != null) {
                     String setValueWlc = response.body().getValueSensor();
                     String setStatusWlc = response.body().getStatusSensor();
-                    Log.d(TAG, "WLC successfully received data");
+                    Log.d(tagged, "WLC successfully received data");
 
                     valueWlc.setText(setValueWlc);
                     statusWlc.setText(setStatusWlc);
@@ -164,26 +168,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(@NotNull Call<SensorModel> call, @NotNull Throwable t) {
                 Toast.makeText(Objects.requireNonNull(getContext()).getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, t.toString());
+                Log.e(tagged, t.toString());
             }
         });
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        switch(v.getId()) {
             case R.id.actionForTemp:
-                Intent getTemp = new Intent(getContext(), ReportTemp.class);
+                Intent getTemp = new Intent(getContext(), ReportTemperature.class);
                 getTemp.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(getTemp);
                 break;
             case R.id.actionForTurbid:
-                Intent getTurbid = new Intent(getContext(), ReportTurbid.class);
+                Intent getTurbid = new Intent(getContext(), ReportTurbidity.class);
                 getTurbid.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(getTurbid);
                 break;
             case R.id.actionForWlc:
-                Intent getWlc = new Intent(getContext(), ReportWlc.class);
+                Intent getWlc = new Intent(getContext(), ReportWaterLevel.class);
                 getWlc.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(getWlc);
                 break;

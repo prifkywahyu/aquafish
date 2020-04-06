@@ -8,7 +8,7 @@
     android:background="@android:color/white">
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/nav_main"
+        android:id="@+id/navMain"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_alignParentBottom="true"
@@ -21,19 +21,18 @@
     </android.support.design.widget.BottomNavigationView>
 
     <View
-        android:id="@+id/transparent_bg"
+        android:id="@+id/transparentBackground"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="@drawable/bg_transparent"
-        android:layout_above="@id/nav_main"/>
+        android:background="@drawable/background_transparent"
+        android:layout_above="@id/navMain"/>
 
     <FrameLayout
-        android:id="@+id/frame_main"
+        android:id="@+id/frameMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/nav_main"
+        android:layout_above="@id/navMain"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
     </FrameLayout>
-
 </RelativeLayout>

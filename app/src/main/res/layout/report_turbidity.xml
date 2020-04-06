@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/wlc_layout"
+    android:id="@+id/turbidLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -20,7 +20,7 @@
         tools:ignore="UselessParent">
 
         <TextView
-            android:id="@+id/dateCreatedWlc"
+            android:id="@+id/dateCreatedTurbid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
@@ -28,7 +28,7 @@
             android:paddingEnd="5dp"
             android:textColor="@android:color/black"
             android:textSize="18sp"
-            android:fontFamily="@font/lato_semi"/>
+            android:fontFamily="@font/font_pre_bold"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -38,10 +38,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textValueWlc"
+                android:id="@+id/textValueTurbid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lato_bold"
+                android:fontFamily="@font/font_bold"
                 android:textSize="16sp"
                 android:textColor="@color/colorPrimary"/>
 
@@ -50,21 +50,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="0dp"
-                android:fontFamily="@font/lato_bold"
-                android:text="@string/unit_of_wlc"
+                android:fontFamily="@font/font_bold"
+                android:text="@string/turbidityUnit"
                 android:textSize="16sp"
                 android:textAlignment="textEnd"
                 android:textColor="@color/colorPrimary"/>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textStatusWlc"
+            android:id="@+id/textStatusTurbid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:fontFamily="@font/lato_bold"
+            android:fontFamily="@font/font_bold"
             android:textSize="16sp"
             android:textColor="@color/colorPrimary" />
 

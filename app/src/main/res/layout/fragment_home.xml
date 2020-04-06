@@ -20,11 +20,11 @@
             android:layout_weight="1"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="0dp"
-            android:text="@string/app_name"
+            android:text="@string/appName"
             android:textSize="16sp"
             android:textColor="@color/colorPrimary"
             android:textAlignment="textStart"
-            android:fontFamily="@font/lato_semi"
+            android:fontFamily="@font/font_pre_bold"
             android:paddingVertical="15dp"
             tools:targetApi="o"/>
 
@@ -39,7 +39,7 @@
             android:textSize="16sp"
             android:textColor="@color/colorPrimary"
             android:textAlignment="textEnd"
-            android:fontFamily="@font/lato_semi"
+            android:fontFamily="@font/font_pre_bold"
             android:paddingVertical="15dp"
             tools:targetApi="o"/>
     </LinearLayout>
@@ -52,427 +52,429 @@
         android:background="@android:color/transparent"
         android:fillViewport="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="UselessParent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="@android:color/white"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textWelcome"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:text="@string/app_name"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textColor="@android:color/white"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/field_home"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="30dp"
-                    android:paddingEnd="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/monitor_data"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/white"/>
-            </LinearLayout>
-        </RelativeLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardTemp"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textWelcome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:text="@string/appName"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/white"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/field_home"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="30dp"
+                        android:paddingEnd="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/monitorData"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/white"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@drawable/draw_shadow"
-                android:foreground="?android:attr/selectableItemBackground"
-                tools:targetApi="o">
+                android:clipToPadding="false"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardTemp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="start"
-                    tools:ignore="UseCompoundDrawables">
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/draw_shadow"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    tools:targetApi="o">
 
                     <LinearLayout
-                        android:id="@+id/leftForTemp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="0dp"
-                        android:orientation="vertical"
-                        tools:targetApi="o">
-
-                        <TextView
-                            android:id="@+id/valueForTemp"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/number"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="28sp"
-                            android:fontFamily="@font/lato_bold"
-                            android:gravity="center"
-                            android:background="@drawable/field_backup"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="bottom"
-                            android:layout_marginBottom="15dp"
-                            android:text="@string/unit_of_cel"
-                            android:textAlignment="center"
-                            android:textSize="24sp"
-                            android:textColor="@android:color/black"
-                            android:fontFamily="@font/lato_semi"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/rightForTemp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="vertical"
-                        tools:targetApi="o">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/temp"
-                            android:textColor="@android:color/black"
-                            android:textSize="18sp"/>
+                        android:orientation="horizontal"
+                        android:gravity="start"
+                        tools:ignore="UseCompoundDrawables">
 
                         <LinearLayout
+                            android:id="@+id/leftForTemp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginHorizontal="20dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginBottom="20dp"
-                            android:orientation="horizontal">
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="0dp"
+                            android:orientation="vertical"
+                            tools:targetApi="o">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="0dp"
-                                android:layout_marginEnd="5dp"
-                                android:text="@string/status"
-                                android:textSize="16sp"
-                                android:textAlignment="textEnd"
-                                android:textColor="@color/colorGray"
-                                tools:targetApi="o"/>
+                                android:id="@+id/valueForTemp"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="15dp"
+                                android:text="@string/number"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="28sp"
+                                android:fontFamily="@font/font_bold"
+                                android:gravity="center"
+                                android:background="@drawable/field_backup"/>
 
                             <TextView
-                                android:id="@+id/statusForTemp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="5dp"
-                                android:layout_marginEnd="0dp"
-                                android:text="@string/normal"
-                                android:textSize="16sp"
-                                android:textAlignment="textStart"
-                                android:textColor="@color/colorGray"
-                                tools:targetApi="o"/>
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="bottom"
+                                android:layout_marginBottom="15dp"
+                                android:text="@string/temperatureUnit"
+                                android:textAlignment="center"
+                                android:textSize="24sp"
+                                android:textColor="@android:color/black"
+                                android:fontFamily="@font/font_pre_bold"
+                                tools:ignore="RtlCompat"/>
                         </LinearLayout>
 
-                        <Button
-                            android:id="@+id/actionForTemp"
+                        <LinearLayout
+                            android:id="@+id/rightForTemp"
                             android:layout_width="match_parent"
-                            android:layout_height="36dp"
-                            android:layout_marginTop="0dp"
-                            android:layout_marginBottom="15dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/report"
-                            android:textSize="16sp"
-                            android:textAllCaps="false"
-                            android:textColor="@android:color/white"
-                            android:background="@drawable/field_button"
-                            android:layout_marginHorizontal="10dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical"
+                            tools:targetApi="o">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:layout_gravity="center_horizontal"
+                                android:text="@string/temperature"
+                                android:textColor="@android:color/black"
+                                android:textSize="18sp"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginHorizontal="20dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="20dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="0dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:text="@string/status"
+                                    android:textSize="16sp"
+                                    android:textAlignment="textEnd"
+                                    android:textColor="@color/colorGray"
+                                    tools:targetApi="o"/>
+
+                                <TextView
+                                    android:id="@+id/statusForTemp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="0dp"
+                                    android:text="@string/normal"
+                                    android:textSize="16sp"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/colorGray"
+                                    tools:targetApi="o"/>
+                            </LinearLayout>
+
+                            <Button
+                                android:id="@+id/actionForTemp"
+                                android:layout_width="match_parent"
+                                android:layout_height="36dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="15dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="@string/report"
+                                android:textSize="16sp"
+                                android:textAllCaps="false"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/field_button"
+                                android:layout_marginHorizontal="10dp"/>
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardTurbid"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@drawable/draw_shadow"
-                android:foreground="?android:attr/selectableItemBackground">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardTurbid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/draw_shadow"
+                    android:foreground="?android:attr/selectableItemBackground">
 
-                <LinearLayout
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="start"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <LinearLayout
+                            android:id="@+id/leftForTurbid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="0dp"
+                            android:orientation="vertical"
+                            tools:targetApi="o">
+
+                            <TextView
+                                android:id="@+id/valueForTurbid"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="15dp"
+                                android:text="@string/number"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="28sp"
+                                android:fontFamily="@font/font_bold"
+                                android:gravity="center"
+                                android:background="@drawable/field_backup"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="bottom"
+                                android:layout_marginBottom="15dp"
+                                android:text="@string/turbidityUnit"
+                                android:textAlignment="center"
+                                android:textSize="24sp"
+                                android:textColor="@android:color/black"
+                                android:fontFamily="@font/font_pre_bold"
+                                tools:ignore="RtlCompat"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/rightForTurbid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical"
+                            tools:targetApi="o">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:layout_gravity="center_horizontal"
+                                android:text="@string/turbidity"
+                                android:textColor="@android:color/black"
+                                android:textSize="18sp"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginHorizontal="20dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="20dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="0dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:text="@string/status"
+                                    android:textSize="16sp"
+                                    android:textAlignment="textEnd"
+                                    android:textColor="@color/colorGray"
+                                    tools:targetApi="o"/>
+
+                                <TextView
+                                    android:id="@+id/statusForTurbid"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="0dp"
+                                    android:text="@string/normal"
+                                    android:textSize="16sp"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/colorGray"
+                                    tools:targetApi="o"/>
+                            </LinearLayout>
+
+                            <Button
+                                android:id="@+id/actionForTurbid"
+                                android:layout_width="match_parent"
+                                android:layout_height="36dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="15dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="@string/report"
+                                android:textSize="16sp"
+                                android:textAllCaps="false"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/field_button"
+                                android:layout_marginHorizontal="10dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardWlc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="start"
-                    tools:ignore="UseCompoundDrawables">
+                    android:layout_marginBottom="15dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/draw_shadow"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    tools:targetApi="o">
 
                     <LinearLayout
-                        android:id="@+id/leftForTurbid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="0dp"
-                        android:orientation="vertical"
-                        tools:targetApi="o">
-
-                        <TextView
-                            android:id="@+id/valueForTurbid"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/number"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="28sp"
-                            android:fontFamily="@font/lato_bold"
-                            android:gravity="center"
-                            android:background="@drawable/field_backup"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="bottom"
-                            android:layout_marginBottom="15dp"
-                            android:text="@string/unit_of_tur"
-                            android:textAlignment="center"
-                            android:textSize="24sp"
-                            android:textColor="@android:color/black"
-                            android:fontFamily="@font/lato_semi"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/rightForTurbid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="vertical"
-                        tools:targetApi="o">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/turbid"
-                            android:textColor="@android:color/black"
-                            android:textSize="18sp"/>
+                        android:orientation="horizontal"
+                        android:gravity="start"
+                        tools:ignore="UseCompoundDrawables">
 
                         <LinearLayout
+                            android:id="@+id/leftForWlc"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginHorizontal="20dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginBottom="20dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="0dp"
-                                android:layout_marginEnd="5dp"
-                                android:text="@string/status"
-                                android:textSize="16sp"
-                                android:textAlignment="textEnd"
-                                android:textColor="@color/colorGray"
-                                tools:targetApi="o"/>
-
-                            <TextView
-                                android:id="@+id/statusForTurbid"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="5dp"
-                                android:layout_marginEnd="0dp"
-                                android:text="@string/normal"
-                                android:textSize="16sp"
-                                android:textAlignment="textStart"
-                                android:textColor="@color/colorGray"
-                                tools:targetApi="o"/>
-                        </LinearLayout>
-
-                        <Button
-                            android:id="@+id/actionForTurbid"
-                            android:layout_width="match_parent"
-                            android:layout_height="36dp"
-                            android:layout_marginTop="0dp"
-                            android:layout_marginBottom="15dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/report"
-                            android:textSize="16sp"
-                            android:textAllCaps="false"
-                            android:textColor="@android:color/white"
-                            android:background="@drawable/field_button"
-                            android:layout_marginHorizontal="10dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardWlc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@drawable/draw_shadow"
-                android:foreground="?android:attr/selectableItemBackground"
-                tools:targetApi="o">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="start"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <LinearLayout
-                        android:id="@+id/leftForWlc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="0dp"
-                        android:orientation="vertical"
-                        tools:targetApi="o">
-
-                        <TextView
-                            android:id="@+id/valueForWlc"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/number"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="28sp"
-                            android:fontFamily="@font/lato_bold"
-                            android:gravity="center"
-                            android:background="@drawable/field_backup"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="bottom"
-                            android:layout_marginBottom="15dp"
-                            android:text="@string/unit_of_wlc"
-                            android:textAlignment="center"
-                            android:textSize="24sp"
-                            android:textColor="@android:color/black"
-                            android:fontFamily="@font/lato_semi"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/rightForWlc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="vertical"
-                        tools:targetApi="o">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/wlc"
-                            android:textColor="@android:color/black"
-                            android:textSize="18sp"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginHorizontal="20dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginBottom="20dp"
-                            android:orientation="horizontal">
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="0dp"
+                            android:orientation="vertical"
+                            tools:targetApi="o">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="0dp"
-                                android:layout_marginEnd="5dp"
-                                android:text="@string/status"
-                                android:textSize="16sp"
-                                android:textAlignment="textEnd"
-                                android:textColor="@color/colorGray"
-                                tools:targetApi="o"/>
+                                android:id="@+id/valueForWlc"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="15dp"
+                                android:text="@string/number"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="28sp"
+                                android:fontFamily="@font/font_bold"
+                                android:gravity="center"
+                                android:background="@drawable/field_backup"/>
 
                             <TextView
-                                android:id="@+id/statusForWlc"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="5dp"
-                                android:layout_marginEnd="0dp"
-                                android:text="@string/normal"
-                                android:textSize="16sp"
-                                android:textAlignment="textStart"
-                                android:textColor="@color/colorGray"
-                                tools:targetApi="o"/>
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="bottom"
+                                android:layout_marginBottom="15dp"
+                                android:text="@string/waterLevelUnit"
+                                android:textAlignment="center"
+                                android:textSize="24sp"
+                                android:textColor="@android:color/black"
+                                android:fontFamily="@font/font_pre_bold"
+                                tools:ignore="RtlCompat"/>
                         </LinearLayout>
 
-                        <Button
-                            android:id="@+id/actionForWlc"
+                        <LinearLayout
+                            android:id="@+id/rightForWlc"
                             android:layout_width="match_parent"
-                            android:layout_height="36dp"
-                            android:layout_marginTop="0dp"
-                            android:layout_marginBottom="15dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/report"
-                            android:textSize="16sp"
-                            android:textAllCaps="false"
-                            android:textColor="@android:color/white"
-                            android:background="@drawable/field_button"
-                            android:layout_marginHorizontal="10dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:orientation="vertical"
+                            tools:targetApi="o">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:layout_gravity="center_horizontal"
+                                android:text="@string/waterLevel"
+                                android:textColor="@android:color/black"
+                                android:textSize="18sp"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginHorizontal="20dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="20dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="0dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:text="@string/status"
+                                    android:textSize="16sp"
+                                    android:textAlignment="textEnd"
+                                    android:textColor="@color/colorGray"
+                                    tools:targetApi="o"/>
+
+                                <TextView
+                                    android:id="@+id/statusForWlc"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="0dp"
+                                    android:text="@string/normal"
+                                    android:textSize="16sp"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/colorGray"
+                                    tools:targetApi="o"/>
+                            </LinearLayout>
+
+                            <Button
+                                android:id="@+id/actionForWlc"
+                                android:layout_width="match_parent"
+                                android:layout_height="36dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="15dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="@string/report"
+                                android:textSize="16sp"
+                                android:textAllCaps="false"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/field_button"
+                                android:layout_marginHorizontal="10dp"/>
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>

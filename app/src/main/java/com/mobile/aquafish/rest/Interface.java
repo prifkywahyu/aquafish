@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-public interface ApiInterface {
+public interface Interface {
 
     @GET("sensor_read.php")
     Call<SensorModel> getTwoData(@Query("aqua_code") String code, @Query("type") String type);

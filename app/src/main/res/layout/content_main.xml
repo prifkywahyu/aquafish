@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"/>
@@ -23,6 +23,6 @@
         android:textAllCaps="false"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        android:fontFamily="@font/lato_semi"
+        android:fontFamily="@font/font_pre_bold"
         tools:targetApi="o"/>
 </LinearLayout>
