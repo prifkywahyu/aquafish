@@ -23,7 +23,7 @@ public class InputFilterMinMax implements InputFilter {
             int input = Integer.parseInt(dest.toString() + source.toString());
             if(isInRange(min, max, input))
                 return null;
-        } catch (NumberFormatException ignored) {}
+        } catch(NumberFormatException ignored) {}
         return "";
     }
 
